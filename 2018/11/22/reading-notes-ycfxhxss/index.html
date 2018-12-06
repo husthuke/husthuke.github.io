@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="概述本书主要针对两大类算法簇进行了预测类算法讲解，并使用水雷-岩石和红酒数据集进行了实例讲解，在讲解算法并未深入十分基础的数学原理以及数学推导，而更多的是将原理转化成容易理解的语言，并介绍了实际使用中的相关模型选择经验，对预测分析任务实战有一定指导意义。 内容章节递进关系1 关于预测的两类核心算法该书主要介绍在实际使用中比较常见以及效果好的两类算法簇，包括惩罚回归方法以及集成方法。  惩罚回归方法">
+<meta name="keywords" content="机器学习,预测分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pyhton机器学习——预测分析核心算法">
+<meta property="og:url" content="http://yoursite.com/2018/11/22/reading-notes-ycfxhxss/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="概述本书主要针对两大类算法簇进行了预测类算法讲解，并使用水雷-岩石和红酒数据集进行了实例讲解，在讲解算法并未深入十分基础的数学原理以及数学推导，而更多的是将原理转化成容易理解的语言，并介绍了实际使用中的相关模型选择经验，对预测分析任务实战有一定指导意义。 内容章节递进关系1 关于预测的两类核心算法该书主要介绍在实际使用中比较常见以及效果好的两类算法簇，包括惩罚回归方法以及集成方法。  惩罚回归方法">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-22T03:56:43.812Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pyhton机器学习——预测分析核心算法">
+<meta name="twitter:description" content="概述本书主要针对两大类算法簇进行了预测类算法讲解，并使用水雷-岩石和红酒数据集进行了实例讲解，在讲解算法并未深入十分基础的数学原理以及数学推导，而更多的是将原理转化成容易理解的语言，并介绍了实际使用中的相关模型选择经验，对预测分析任务实战有一定指导意义。 内容章节递进关系1 关于预测的两类核心算法该书主要介绍在实际使用中比较常见以及效果好的两类算法簇，包括惩罚回归方法以及集成方法。  惩罚回归方法">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/22/reading-notes-ycfxhxss/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Pyhton机器学习——预测分析核心算法 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/reading-notes-ycfxhxss/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hooke">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Pyhton机器学习——预测分析核心算法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-22 11:44:20 / Modified: 11:56:43" itemprop="dateCreated datePublished" datetime="2018-11-22T11:44:20+08:00">2018-11-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/reading-notes/" itemprop="url" rel="index"><span itemprop="name">reading-notes</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>本书主要针对两大类算法簇进行了预测类算法讲解，并使用水雷-岩石和红酒数据集进行了实例讲解，在讲解算法并未深入十分基础的数学原理以及数学推导，而更多的是将原理转化成容易理解的语言，并介绍了实际使用中的相关模型选择经验，对预测分析任务实战有一定指导意义。</p>
+<h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h2><h3 id="章节递进关系"><a href="#章节递进关系" class="headerlink" title="章节递进关系"></a>章节递进关系</h3><h4 id="1-关于预测的两类核心算法"><a href="#1-关于预测的两类核心算法" class="headerlink" title="1 关于预测的两类核心算法"></a>1 关于预测的两类核心算法</h4><p>该书主要介绍在实际使用中比较常见以及效果好的两类算法簇，包括惩罚回归方法以及集成方法。</p>
+<ul>
+<li>惩罚回归方法：主要是以传统的线性回归中最小二乘法求解为基础，加上惩罚项进行约束，避免过拟合问题。</li>
+<li>集成方法：通过多个弱学习器进行集成来整体提升模型的效果，主要包括提升决策树、随机森林、投票决策树、提升二叉树等，又可以抽象的归纳为bootsing方法以及bagging方法。</li>
+</ul>
+<p>不同的算法在不同类型的数据集（包括大数据集、小数据集、宽数据集、高数据集等，同时数据集的特征可能是连续特征较多也可能是离散数据特征较多）上表现可能存在较大的差异，因此在进行预测算法选择时要分析探索数据集的类型以及特点选择不同的算法。</p>
+<p>构建预测模型的流程主要包括：</p>
+<ul>
+<li>构造一个机器学习问题：如果充分理解业务，并进行抽象以及问题定义，该工作十分重要，问题定义的是否准确直接决定了该预测模型最终效果的好坏。</li>
+<li>特征提取以及特征工程：该工作需要反复迭代，寻找对预测结果有帮助的特征，可能会占据整个工作的80%-90%的时间。</li>
+<li>模型性能评估：一定要在测试集上充分验证模型的性能，否在在进行实际的线上处理时可能会有很多意想不到的问题。</li>
+</ul>
+<h4 id="2-通过理解数据来了解问题"><a href="#2-通过理解数据来了解问题" class="headerlink" title="2 通过理解数据来了解问题"></a>2 通过理解数据来了解问题</h4><p>因变量与预测结果均可分为数值类型以及类别类型，数值类型是指连续的数值变量或者比较大小存在意义的离散变量，类别类型变量不同值之间没有顺序关系。</p>
+<p>根据因变量与预测结果类型不同选取不同的模型。预测结果类型为数值类型的又可称为回归任务，预测结果类型为类别类型的为分类任务，特别的当结果类型类别自由两类时为二分类问题。</p>
+<p>因变量也可以称为：属性、预测因子、特征、独立变量、输入<br>预测结果也可成为：标签、目标、依赖变量、响应</p>
+<h4 id="3-预测模型的构建-平衡性能、复杂性以及大数据"><a href="#3-预测模型的构建-平衡性能、复杂性以及大数据" class="headerlink" title="3 预测模型的构建:平衡性能、复杂性以及大数据"></a>3 预测模型的构建:平衡性能、复杂性以及大数据</h4><p>预测模型总体上来说可分为线性模型以及非线性模型，一般来说非线性模型的复杂度高于线性模型，数据的预测因子越多，模型也就越复杂，如果对于数据量较少的样本来说，如果模型过于复杂就容易出现过拟合问题。</p>
+<p>问题的复杂性也容易影响模型的拟合情况，通过训练数据的分布也可以从某种程度上反映出问题的复杂程度，以分类问题来说，如果训练数据的分布存在明显的分界，则说明该分类问题件比较简单，如果分布错综复杂，说明该分类问题比较复杂。</p>
+<p>选择预测模型的基本原则：</p>
+<ul>
+<li>简单的问题选取线性模型等复杂度较低的模型</li>
+<li>复杂的问题选取非线性等复杂度较高的模型</li>
+<li>对于训练时间敏感的问题尽量避开复杂度过高的模型</li>
+</ul>
+<p>预测结果类型不同需要选取不同的评价指标，对于回归问题多选用MAE，MSE作为评价模型，对于二分类问题多采用ROC曲线或者AUC指标作为评价模型。</p>
+<p>控制模型过拟合的方法：</p>
+<ul>
+<li>使用前向逐步回归来控制过拟合</li>
+<li>通过惩罚回归系数来控制过拟合</li>
+</ul>
+<h4 id="4-惩罚线性回归模型"><a href="#4-惩罚线性回归模型" class="headerlink" title="4 惩罚线性回归模型"></a>4 惩罚线性回归模型</h4><p>为了解决线性模型过拟合问题，惩罚线性回归模型都是在损失函数中增加各种惩罚项来增加模型的泛化能力。</p>
+<p>因此惩罚线性回归的如下几个特点使得该模型十分有效：</p>
+<ul>
+<li>模型训练足够快速</li>
+<li>部署是预测速度较快</li>
+<li>变量的重要信息易于解释</li>
+<li>特别是对那些适用于采用线性模型进行处理的问题</li>
+</ul>
+<p>不同种类惩罚线性回归模型的惩罚项：</p>
+<ul>
+<li><p>Ridge回归</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\frac&#123;\lambda\beta^T\beta&#125;&#123;2&#125; = \frac&#123;\lambda&#123;(\beta_1^2+\beta_1^2+\cdots+\beta_n^2)&#125;&#125;&#123;2&#125; = \frac&#123;\Vert\beta\Vert^2&#125;&#123;2&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Lasso回归</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\lambda\Vert\beta\Vert_1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ElasticNet回归</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\lambda_1\Vert\beta\Vert_1 + \lambda_2\Vert\beta\Vert^2</span><br></pre></td></tr></table></figure>
+<p>可以将类型变量进行onehot编码处理之后进行再进行线性回归预测</p>
+<h4 id="5-使用惩罚线性方法来构建预测模型"><a href="#5-使用惩罚线性方法来构建预测模型" class="headerlink" title="5 使用惩罚线性方法来构建预测模型"></a>5 使用惩罚线性方法来构建预测模型</h4><p>采用惩罚线性回归模型的具体案例，代码见：</p>
+<h4 id="6-集成方法"><a href="#6-集成方法" class="headerlink" title="6 集成方法"></a>6 集成方法</h4><p>本章主要介绍了bagging，gradient boosting以及random forest。</p>
+<ul>
+<li>bagging：通过多个基学习器进行带权重的投标决定最终分类。</li>
+<li>gradient boosting：通过多个基学习期进行多轮学习，每一轮的输入采用前一轮的错误残差，也就是说上一轮出现错误的更多的参与了下一轮的学习。</li>
+<li>random forest：在bagging基础上随机的选择属性构建决策树。</li>
+</ul>
+<h4 id="7-用Python构建集成模型"><a href="#7-用Python构建集成模型" class="headerlink" title="7 用Python构建集成模型"></a>7 用Python构建集成模型</h4><p>具体集成方法的具体案例，代码见：</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/预测分析/" rel="tag"># 预测分析</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/03/reading-notes-gjssjqxxxt/" rel="next" title="构建实时机器学习系统">
+                <i class="fa fa-chevron-left"></i> 构建实时机器学习系统
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Hooke</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内容"><span class="nav-number">2.</span> <span class="nav-text">内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#章节递进关系"><span class="nav-number">2.1.</span> <span class="nav-text">章节递进关系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-关于预测的两类核心算法"><span class="nav-number">2.1.1.</span> <span class="nav-text">1 关于预测的两类核心算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-通过理解数据来了解问题"><span class="nav-number">2.1.2.</span> <span class="nav-text">2 通过理解数据来了解问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-预测模型的构建-平衡性能、复杂性以及大数据"><span class="nav-number">2.1.3.</span> <span class="nav-text">3 预测模型的构建:平衡性能、复杂性以及大数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-惩罚线性回归模型"><span class="nav-number">2.1.4.</span> <span class="nav-text">4 惩罚线性回归模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-使用惩罚线性方法来构建预测模型"><span class="nav-number">2.1.5.</span> <span class="nav-text">5 使用惩罚线性方法来构建预测模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-集成方法"><span class="nav-number">2.1.6.</span> <span class="nav-text">6 集成方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-用Python构建集成模型"><span class="nav-number">2.1.7.</span> <span class="nav-text">7 用Python构建集成模型</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hooke</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+    
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

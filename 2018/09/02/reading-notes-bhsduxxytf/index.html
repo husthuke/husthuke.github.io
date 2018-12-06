@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="概述&amp;emsp;&amp;emsp;本书以较为通俗的语言介绍了深度学习的方方面面，从机器学习的基本任务到CNN、RNN，再到残差网络、强化学习、GAN等；讲述时将部分公式用比较通俗的语言进行了解释，便于建立直观的认识；使用TensorFlow工具介绍了手写板、图片分类、自动文本生成等基础学习案例。&amp;emsp;&amp;emsp;本人认为最具特点的一章是第七章解释了一些机器学习中通用的问题，比如归一化、正则化、超参">
+<meta name="keywords" content="深度学习,TensorFlow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="白话深度学习与TensorFlow">
+<meta property="og:url" content="http://yoursite.com/2018/09/02/reading-notes-bhsduxxytf/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="概述&amp;emsp;&amp;emsp;本书以较为通俗的语言介绍了深度学习的方方面面，从机器学习的基本任务到CNN、RNN，再到残差网络、强化学习、GAN等；讲述时将部分公式用比较通俗的语言进行了解释，便于建立直观的认识；使用TensorFlow工具介绍了手写板、图片分类、自动文本生成等基础学习案例。&amp;emsp;&amp;emsp;本人认为最具特点的一章是第七章解释了一些机器学习中通用的问题，比如归一化、正则化、超参">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-02T09:08:45.341Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="白话深度学习与TensorFlow">
+<meta name="twitter:description" content="概述&amp;emsp;&amp;emsp;本书以较为通俗的语言介绍了深度学习的方方面面，从机器学习的基本任务到CNN、RNN，再到残差网络、强化学习、GAN等；讲述时将部分公式用比较通俗的语言进行了解释，便于建立直观的认识；使用TensorFlow工具介绍了手写板、图片分类、自动文本生成等基础学习案例。&amp;emsp;&amp;emsp;本人认为最具特点的一章是第七章解释了一些机器学习中通用的问题，比如归一化、正则化、超参">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/02/reading-notes-bhsduxxytf/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>白话深度学习与TensorFlow | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/02/reading-notes-bhsduxxytf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hooke">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">白话深度学习与TensorFlow
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-09-02 14:24:56" itemprop="dateCreated datePublished" datetime="2018-09-02T14:24:56+08:00">2018-09-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-11-02 17:08:45" itemprop="dateModified" datetime="2018-11-02T17:08:45+08:00">2018-11-02</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/reading-notes/" itemprop="url" rel="index"><span itemprop="name">reading-notes</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>&emsp;&emsp;本书以较为通俗的语言介绍了深度学习的方方面面，从机器学习的基本任务到CNN、RNN，再到残差网络、强化学习、GAN等；讲述时将部分公式用比较通俗的语言进行了解释，便于建立直观的认识；使用TensorFlow工具介绍了手写板、图片分类、自动文本生成等基础学习案例。<br>&emsp;&emsp;本人认为最具特点的一章是第七章解释了一些机器学习中通用的问题，比如归一化、正则化、超参数等等。</p>
+<p>## </p>
+<h3 id="基础篇"><a href="#基础篇" class="headerlink" title="基础篇"></a>基础篇</h3><h4 id="1-机器学习是什么"><a href="#1-机器学习是什么" class="headerlink" title="1 机器学习是什么"></a>1 机器学习是什么</h4><p>&emsp;&emsp;介绍基本学习基本概念，基本任务的分类包括分类、聚类、回归，以及结合多种任务的综合应用。</p>
+<h4 id="2-深度学习是什么"><a href="#2-深度学习是什么" class="headerlink" title="2 深度学习是什么"></a>2 深度学习是什么</h4><p>&emsp;&emsp; 介绍神经网络的基本结构，包括神经元、激活函数等，深度学习的基本概念，并解释了深度学习为什么具备这么强的特性，最后列举了目前基于深度学习的一些商业案例。</p>
+<h4 id="3-TensorFlow框架与安装"><a href="#3-TensorFlow框架与安装" class="headerlink" title="3 TensorFlow框架与安装"></a>3 TensorFlow框架与安装</h4><p>&emsp;&emsp; 介绍了TensorFlow框架的特点以及与其他框架的特性比较，并介绍了TensorFlow的集群、可视化、线上部署等高级特性。</p>
+<h3 id="原理与实践篇"><a href="#原理与实践篇" class="headerlink" title="原理与实践篇"></a>原理与实践篇</h3><h3 id="4-前馈神经网络"><a href="#4-前馈神经网络" class="headerlink" title="4 前馈神经网络"></a>4 前馈神经网络</h3><p>&emsp;&emsp; 首先介绍了导数、梯度下降、凸函数极值求解等基本概念，从线性回归求解入手逐步介绍神经网络的求解过程，在求解过程中解释了数据样本的训练集、验证集以及测试集。</p>
+<h3 id="5-手写板识别"><a href="#5-手写板识别" class="headerlink" title="5 手写板识别"></a>5 手写板识别</h3><p>&emsp;&emsp; 基于MNIST数据集，以TensorFlow为工具介绍了手写数字识别案例，介绍了一个机器学习项目的基本流程。</p>
+<h3 id="6-卷积神经网络"><a href="#6-卷积神经网络" class="headerlink" title="6 卷积神经网络"></a>6 卷积神经网络</h3><p>&emsp;&emsp; 首先介绍卷积、卷积核、池化、采样等基本概念，讲解了集中典型的CNN网络，包括VGG-16，GoogleNet等，最后使用CIFAR-10数据集进行了图片分类的案例分析。</p>
+<h3 id="7-综合问题"><a href="#7-综合问题" class="headerlink" title="7 综合问题"></a>7 综合问题</h3><p>&emsp;&emsp; 总结了在机器学习以及深度学习中的基本概念及其应用特点，包括归一化、正则化、梯度消息问题、参数初始化问题、超参数选取问题等</p>
+<h3 id="8-循环神经网络"><a href="#8-循环神经网络" class="headerlink" title="8 循环神经网络"></a>8 循环神经网络</h3><p>&emsp;&emsp;从隐马尔科夫链入手介绍序列数据处理的模型，讲解了RNN模型的基本结构以及训练过程，由于RNN梯度爆炸和梯度消失的的问题引入了目前业界更加常用的LSTM模型，LSTM模型主要是在RNN模型的基础上增加了状态，这个状态可以通过各种激活函数控制以不同的比例参与到下一个序列的输入，概括来说包括输入遗忘部分、状态更新部分以及输出部分；最后实践了自动文本生成和聊天机器人两个例子。</p>
+<h3 id="扩展篇"><a href="#扩展篇" class="headerlink" title="扩展篇"></a>扩展篇</h3><h4 id="9-残差神经网路"><a href="#9-残差神经网路" class="headerlink" title="9 残差神经网路"></a>9 残差神经网路</h4><h4 id="10-受限玻尔兹曼机"><a href="#10-受限玻尔兹曼机" class="headerlink" title="10 受限玻尔兹曼机"></a>10 受限玻尔兹曼机</h4><h4 id="11-强化学习"><a href="#11-强化学习" class="headerlink" title="11 强化学习"></a>11 强化学习</h4><h4 id="12-对抗学习"><a href="#12-对抗学习" class="headerlink" title="12 对抗学习"></a>12 对抗学习</h4><h4 id="13-有趣的深度学习应用"><a href="#13-有趣的深度学习应用" class="headerlink" title="13 有趣的深度学习应用"></a>13 有趣的深度学习应用</h4><h3 id="章节递进关系"><a href="#章节递进关系" class="headerlink" title="章节递进关系"></a>章节递进关系</h3><h2 id="知识点框架图"><a href="#知识点框架图" class="headerlink" title="知识点框架图"></a>知识点框架图</h2>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/TensorFlow/" rel="tag"># TensorFlow</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/02/internet-architecture-math-definition/" rel="next" title="互联网架构的数学解释——互联网架构定义及特性">
+                <i class="fa fa-chevron-left"></i> 互联网架构的数学解释——互联网架构定义及特性
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/11/ai-transformation-mind/" rel="prev" title="互联网后端开发转型(转行)AI之路——思想篇">
+                互联网后端开发转型(转行)AI之路——思想篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Hooke</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础篇"><span class="nav-number">1.1.</span> <span class="nav-text">基础篇</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-机器学习是什么"><span class="nav-number">1.1.1.</span> <span class="nav-text">1 机器学习是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-深度学习是什么"><span class="nav-number">1.1.2.</span> <span class="nav-text">2 深度学习是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-TensorFlow框架与安装"><span class="nav-number">1.1.3.</span> <span class="nav-text">3 TensorFlow框架与安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理与实践篇"><span class="nav-number">1.2.</span> <span class="nav-text">原理与实践篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-前馈神经网络"><span class="nav-number">1.3.</span> <span class="nav-text">4 前馈神经网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-手写板识别"><span class="nav-number">1.4.</span> <span class="nav-text">5 手写板识别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-卷积神经网络"><span class="nav-number">1.5.</span> <span class="nav-text">6 卷积神经网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-综合问题"><span class="nav-number">1.6.</span> <span class="nav-text">7 综合问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-循环神经网络"><span class="nav-number">1.7.</span> <span class="nav-text">8 循环神经网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展篇"><span class="nav-number">1.8.</span> <span class="nav-text">扩展篇</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#9-残差神经网路"><span class="nav-number">1.8.1.</span> <span class="nav-text">9 残差神经网路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-受限玻尔兹曼机"><span class="nav-number">1.8.2.</span> <span class="nav-text">10 受限玻尔兹曼机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-强化学习"><span class="nav-number">1.8.3.</span> <span class="nav-text">11 强化学习</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-对抗学习"><span class="nav-number">1.8.4.</span> <span class="nav-text">12 对抗学习</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-有趣的深度学习应用"><span class="nav-number">1.8.5.</span> <span class="nav-text">13 有趣的深度学习应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#章节递进关系"><span class="nav-number">1.9.</span> <span class="nav-text">章节递进关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知识点框架图"><span class="nav-number">2.</span> <span class="nav-text">知识点框架图</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hooke</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+    
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

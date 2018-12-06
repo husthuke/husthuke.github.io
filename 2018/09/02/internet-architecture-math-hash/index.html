@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="&amp;emsp;&amp;emsp;本专栏前面介绍了互联网架构的定义以及各层级的域架构，本篇以哈希开始从架构元这一层开始详细介绍互联网架构于数学的对应关系。 哈希相关基础知识定义&amp;emsp;&amp;emsp;哈希是Hash的英译，用于表示一种映射关系，可以将源空间中的样本（键值）较容易映射为目标空间中的唯一确定的样本（哈希值）。 哈希函数&amp;emsp;&amp;emsp;用于表示上述定义中的这种映射关系的就是哈希函数，针">
+<meta name="keywords" content="架构,数学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="互联网架构的数学解释——互联网架构定义及特性">
+<meta property="og:url" content="http://yoursite.com/2018/09/02/internet-architecture-math-hash/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;本专栏前面介绍了互联网架构的定义以及各层级的域架构，本篇以哈希开始从架构元这一层开始详细介绍互联网架构于数学的对应关系。 哈希相关基础知识定义&amp;emsp;&amp;emsp;哈希是Hash的英译，用于表示一种映射关系，可以将源空间中的样本（键值）较容易映射为目标空间中的唯一确定的样本（哈希值）。 哈希函数&amp;emsp;&amp;emsp;用于表示上述定义中的这种映射关系的就是哈希函数，针">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-26T09:54:40.396Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="互联网架构的数学解释——互联网架构定义及特性">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;本专栏前面介绍了互联网架构的定义以及各层级的域架构，本篇以哈希开始从架构元这一层开始详细介绍互联网架构于数学的对应关系。 哈希相关基础知识定义&amp;emsp;&amp;emsp;哈希是Hash的英译，用于表示一种映射关系，可以将源空间中的样本（键值）较容易映射为目标空间中的唯一确定的样本（哈希值）。 哈希函数&amp;emsp;&amp;emsp;用于表示上述定义中的这种映射关系的就是哈希函数，针">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/02/internet-architecture-math-hash/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>互联网架构的数学解释——互联网架构定义及特性 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/02/internet-architecture-math-hash/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hooke">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">互联网架构的数学解释——互联网架构定义及特性
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-09-02 14:24:56" itemprop="dateCreated datePublished" datetime="2018-09-02T14:24:56+08:00">2018-09-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-10-26 17:54:40" itemprop="dateModified" datetime="2018-10-26T17:54:40+08:00">2018-10-26</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/internet-architecture-math/" itemprop="url" rel="index"><span itemprop="name">internet-architecture-math</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>&emsp;&emsp;本专栏前面介绍了互联网架构的定义以及各层级的域架构，本篇以哈希开始从架构元这一层开始详细介绍互联网架构于数学的对应关系。</p>
+<h2 id="哈希相关基础知识"><a href="#哈希相关基础知识" class="headerlink" title="哈希相关基础知识"></a>哈希相关基础知识</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>&emsp;&emsp;哈希是Hash的英译，用于表示一种映射关系，可以将源空间中的样本（键值）较容易映射为目标空间中的唯一确定的样本（哈希值）。</p>
+<h3 id="哈希函数"><a href="#哈希函数" class="headerlink" title="哈希函数"></a>哈希函数</h3><p>&emsp;&emsp;用于表示上述定义中的这种映射关系的就是哈希函数，针对不同的应用场景会设计不同的哈希函数，通常考虑的因素或者衡量指标包括：</p>
+<ul>
+<li>计算哈希值所需时间</li>
+<li>哈希值求逆以及求碰撞难易程度</li>
+<li>哈希值在目标空间的分布情况（均衡性）</li>
+<li>源空间样本到目标空间样本信息损失情况（损失性）</li>
+<li>某个参数发生变化时，哈希值发生变化样本的占比情况（单调性）</li>
+</ul>
+<blockquote>
+<p><strong>基本还是可以通过时间+空间的方式进行思考，前面两条表示正向以及逆向的时间问题，第三条表示空间分布，第四条表示空间的变化</strong></p>
+</blockquote>
+<p>&emsp;&emsp;在具体应用场景，设计哈希函数时，有如下几种进行设计的方法：</p>
+<ul>
+<li>直接定址法：取关键字或关键字的某个线性函数值为散列地址。即H(key)=key或H(key) = a·key + b，其中a和b为常数（这种散列函数叫做自身函数）。若其中H(key）中已经有值了，就往下一个找，直到H(key）中没有值了，就放进去。</li>
+<li>数字分析法：假设关键字是以r为基的数，并且哈希表中可能出现的关键字都是事先知道的，则可取关键字的若干数位组成哈希地址。</li>
+<li>除留余数法：取关键字被某个不大于散列表表长m的数p除后所得的余数为散列地址。即 H(key) = key MOD p,p&lt;=m。不仅可以对关键字直接取模，也可在折叠、平方取中等运算之后取模。对p的选择很重要，一般取素数或m，若p选的不好，容易产生同义词。</li>
+<li>平方取中法：当无法确定关键字中哪几位分布较均匀时，可以先求出关键字的平方值，然后按需要取平方值的中间几位作为哈希地址。</li>
+<li>乘法取整法：f(x):=trunc((x/maxX)*maxlongit) mod maxM，主要用于实数。</li>
+<li>折叠法：将关键字分割成位数相同的几部分（最后一部分的位数可以不同），然后取这几部分的叠加和（舍去进位）作为哈希地址。</li>
+<li>随机法：选择一随机函数，取关键字的随机值作为散列地址，通常用于关键字长度不同的场合。</li>
+<li>斐波那契（Fibonacci）散列法：</li>
+<li>MD5：MD5即Message-Digest Algorithm 5（信息-摘要算法5），用于确保信息传输完整一致。是计算机广泛使用的杂凑算法之一，主流编程语言普遍已有MD5实现。将数据（如汉字）运算为另一固定长度值，是杂凑算法的基础原理，MD5的前身有MD2、MD3和MD4。<br>MD5是输入不定长度信息，输出固定长度128-bits的算法。经过程序流程，生成四个32位数据，最后联合起来成为一个128-bits散列。基本方式为，求余、取余、调整长度、与链接变量进行循环运算。得出结果。</li>
+<li>SHA-1：</li>
+</ul>
+<h3 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h3><p>&emsp;&emsp;哈希表是用指上述哈希映射关系的一种数据结构抽象，可以通过源空间中的值（键值）按照目标空间中的值（哈希值）对需要存储的内容进行直接存取。由于涉及到了寻址以及存储等，在具体使用中可能会出现不同的键值在经过哈希函数映射运算之后的哈希值相同，这样就导致了冲突，对于哈希冲突有如下几种处理思路：</p>
+<ul>
+<li>开放寻址法：Hi=(H(key) + di) MOD m,i=1,2,…，k(k&lt;=m-1)，其中H(key)为散列函数，m为散列表长，di为增量序列，di也可以采用不同的序列形式，包括线性序列、二次序列、伪随机序列等</li>
+<li>再散列法：Hi=RHi(key),i=1,2,…，k RHi均是不同的散列函数，即在同义词产生地址冲突时计算另一个散列函数地址，直到冲突不再发生，这种方法不易产生“聚集”，但增加了计算时间。</li>
+<li>链地址法：这种方法的基本思想是将所有哈希地址为i的元素构成一个称为同义词链的单链表，并将单链表的头指针存在哈希表的第i个单元中，因而查找、插入和删除主要在同义词链中进行。链地址法适用于经常进行插入和删除的情况。</li>
+<li>建立公共溢出区：将哈希表分为基本表和溢出表两部分，凡是和基本表发生冲突的元素，一律填入溢出表。</li>
+</ul>
+<blockquote>
+<p><strong>这些处理思路无外乎都是将计算出来的哈希值通过各种办法在目标空间中选取一个与冲突值不同的值</strong></p>
+</blockquote>
+<p>&emsp;&emsp;哈希表在实际的使用中很大一部分是用于加快查找速度，查找效率也就是衡量哈希表在对应场景设计好坏的一个重要指标，一些关键码可通过散列函数转换的地址直接找到，另一些关键码在散列函数得到的地址上产生了冲突，需要按处理冲突的方法进行查找。在介绍的三种处理冲突的方法中，产生冲突后的查找仍然是给定值与关键码进行比较的过程。所以，对散列表查找效率的量度，依然用平均查找长度来衡量。查找过程中，关键码的比较次数，取决于产生冲突的多少，产生的冲突少，查找效率就高，产生的冲突多，查找效率就低。因此，影响产生冲突多少的因素，也就是影响查找效率的因素。影响产生冲突多少有以下三个因素：</p>
+<ul>
+<li>散列函数是否均匀</li>
+<li>处理冲突的方法</li>
+<li>散列表的载荷因子（load factor）：填入表中的元素个数 / 散列表的长度。</li>
+</ul>
+<h2 id="与上层各问题域联系"><a href="#与上层各问题域联系" class="headerlink" title="与上层各问题域联系"></a>与上层各问题域联系</h2><h3 id="在“索引”中的应用"><a href="#在“索引”中的应用" class="headerlink" title="在“索引”中的应用"></a>在“索引”中的应用</h3><p>&emsp;&emsp;哈希可以作为索引的一种方法，将某个字段内容的哈希值与具体保存的行数通过哈希函数映射关系对应起来，这样能够很快的查询到对应的内容。采用哈希作为索引在查询上速度较快，但是也存在一些局限。</p>
+<ul>
+<li>hash索引中只有hash值和行数的指针，因此无法直接使用索引来避免读取行，但是因为这种索引读取快，性能影响不明显。</li>
+<li>hash索引不是按照索引值顺序存储，无法使用于排序。</li>
+<li>不支持部分列匹配查找，这里面是使用索引列的全部内容来计算哈希值，例如(A,B)两列一起建索引，单纯使用A一列，那么就无法使用索引，B-Tree索引的话，因为支持匹配最左前缀，所以这种情况适用性偏好。</li>
+<li>哈希索引只支持等值查询，包括=、in()、&lt;=&gt;，不支持where age &gt; 10 这种范围查询。</li>
+<li>哈希冲突很多的话，维护索引操作的代价也很高</li>
+</ul>
+<h3 id="在“压缩”中的应用"><a href="#在“压缩”中的应用" class="headerlink" title="在“压缩”中的应用"></a>在“压缩”中的应用</h3><h3 id="在“加密”中的应用"><a href="#在“加密”中的应用" class="headerlink" title="在“加密”中的应用"></a>在“加密”中的应用</h3><h3 id="在“负载均衡”中的应用"><a href="#在“负载均衡”中的应用" class="headerlink" title="在“负载均衡”中的应用"></a>在“负载均衡”中的应用</h3><p>&emsp;&emsp;在通用问题域“负载均衡”这个点中，主要是尽量均匀的将键值映射到各节点对应的哈希值，从而达到均匀分摊负载压力的目的。对于这种分配策略在不同的实际应用场景会有不同的设计，本专栏也会专门有文章介绍，不是本篇文章的重点，与本篇文章存在一定联系，也是非常常用的一种负载均衡分配策略就是采用除留余数法（取模）的哈希算法作为一种分配算法，但是该分配策略在单调性上存在较大的不足。</p>
+<p>&emsp;&emsp;假设源空间样本数量为N并均匀分布，目标空间样本数量为m，采用普通取模的hash算法如果目标空间样本数发生变化，比如减少为m-1，在N&gt;&gt;m的情况下，每m*(m-1)范围内除了最前面的m-1个值不发生变化之外，剩余的值均会发生变化，也就是说有1-1/m个值发生变化，当m从10减少到9时，哈希值发生变化的源空间样本占比为90%，在互联网并发高的应用中会出现大量未命中或者状态丢失的情况，影响系统的稳定性。</p>
+<p>&emsp;&emsp;为了解决诸如此类问题，引入了一致性哈希算法：</p>
+<h4 id="一致性哈希"><a href="#一致性哈希" class="headerlink" title="一致性哈希"></a>一致性哈希</h4><p>&emsp;&emsp;一致哈希是一种特殊的哈希算法。在使用一致哈希算法后，哈希值的改变平均只需要对N/n个源空间样本重新进行映射，具备较好的单调性。</p>
+<ul>
+<li>&emsp;&emsp;环形hash 空间：考虑通常的 hash 算法都是将 value 映射到一个 32 位的数值，也就是 0~2^32-1次方的目标空间，我们可以将这个空间想象成一个首（ 0 ）尾（ 2^32-1 ）相接的圆环，如下面图所示的那样。</li>
+</ul>
+<ul>
+<li>把对象映射到目标空间：接下来考虑4个对象object1~object4 ，通过某种hash 函数计算出的哈希值值在环上的分布如图所示。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hash(o1) = m1 </span><br><span class="line">hash(o2) = m2 </span><br><span class="line">hash(o3) = m3 </span><br><span class="line">hash(o4) = m4</span><br></pre></td></tr></table></figure>
+<ul>
+<li>把节点映射到hash 空间<br>使用同样的hash函数，我们将机器也放置到hash环上。假设我们有三台缓存机器，分别为 c1，c2，c3，使用hash函数计算这3台机器的hash值：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hash(c1) = t1 </span><br><span class="line">hash(c2) = t2 </span><br><span class="line">hash(c3) = t3</span><br></pre></td></tr></table></figure>
+<p>把t1，t2，t3 这3个值放置到hash环上，如图所示。</p>
+<p>为对象选择机器<br>将对象和机器都放置到同一个hash环后，在hash环上顺时针查找距离这个对象的hash值最近的机器，即是这个对象所属的机器。<br>例如，对于对象o2，顺序针找到最近的机器是c1，故机器c1会缓存对象o2。而机器c2则缓存o3，o4，机器c3则缓存对象o1。</p>
+<p>通过上述的一致性哈希算法，我们仍然假设源空间样本数量为N并均匀分布，目标空间样本数量为m，当目标空间样本由m变为m-1，以及m+1哈希值发生变化的情况：</p>
+<p>在某些情况下将节点映射到目标空间时，在节点过少时可能会出现映射不均匀的情况，这样会导致节点之间数据不均匀，系统整体利用效率过低，为了解决该问题可以通过引入虚拟节点或者线性映射的办法改善节点的哈希值在目标空间不均匀的情况：</p>
+<p>虚拟节点是指将原来具体的节点对应出多个虚拟的节点，使得整体节点数目变多，减少映射到目标空间不均匀的程度，当然，虚拟节点的增加并不能够完全解决不均匀的问题，但是可以较好的降低不均匀性，定量计算分析如下</p>
+<p>线性映射是指将原有不均匀的环形目标空间对应的节点哈希值映射到均匀的线性空间中，比如通过将节点哈希值对应的顺序再次按照这个线性空间的分区数量进行取模哈希运算。</p>
+<h3 id="在“拆分合并”中的应用"><a href="#在“拆分合并”中的应用" class="headerlink" title="在“拆分合并”中的应用"></a>在“拆分合并”中的应用</h3><p>&emsp;&emsp;通用问题域“拆分合并”包括但是不限于对数据库进行的分表分库，以数据库的分表分库为例，很多情况下会采用源空间为用户id或者业务唯一id，目标空间为数据库编号，哈希函数为取模的方案对数据库的crud请求进行路由，将原来但以数据库的处理压力分担到分开之后的多个数据库。</p>
+<h3 id="在“搜索”中的应用"><a href="#在“搜索”中的应用" class="headerlink" title="在“搜索”中的应用"></a>在“搜索”中的应用</h3><p>&emsp;&emsp;在通用问题域“搜索”这个点中，很多业务场景存在文本搜索的需求，特别是在召回阶段需要对文本的相似度进行计算，为了提高计算效率，会采取对文本计算摘要的方式比较，传统大多数hash算法在源空间键值即时是发生较小的变化，计算出来的哈希值差别也会差别的非常多，不满足在源空间键值相似的情况下目标空间哈希值也尽量相似的要求。相似哈希（simhash）具备上述特性，因此在文本搜索中广泛用于相似度计算。</p>
+<h4 id="相似哈希"><a href="#相似哈希" class="headerlink" title="相似哈希"></a>相似哈希</h4><p>&emsp;&emsp;对两个网页进行相似哈希判断，假定网页中有若干词：t1,t2,…,tk，他们的权重（比如TF-IDF值）分布为：w1,w2,…,wk。先计算出这些词的信息指纹，为便于说明，假定只用8位二进制的信息指纹f1和f2（实际中肯定比这个长，否则重复度太高）。</p>
+<p>&emsp;&emsp;我们先来计算下网页的信息指纹，以第一个网页f1为例，计算步骤如下：</p>
+<ul>
+<li>初始化:将8位二进制的指纹f1扩展成8个实数，用r1,r2,…,r8表示，初值均为0；</li>
+<li>扩展:看t1的指纹（8位），如果t1的第i位为1，则在ri上加上w1；若为0，则在ri上减去w1。使用同样方法，遍历t1~tk（相当于将所有词在第i位的权重相加减得到ri），得到最终r1~rk的值；</li>
+<li>收缩:根据r1~rk的值，若大于零，则f1的对应位为1，否则为0。</li>
+</ul>
+<p>&emsp;&emsp;同样的方法，我们还可以得到其他网页的信息指纹。</p>
+<p>&emsp;&emsp;根据两个网页的相似哈希值，我们可以求出二者之间的相似哈希距离（使用汉明距离或欧几里得距离等），从而判断网页是否相似。</p>
+<p>&emsp;&emsp;相似哈希的特点是：如果两个网页的相似哈希相差越小，这两个网页的相似性越高。如果两个网页相同，他们的相似哈希肯定相同。如果他们只有少数权重小的词不同，其余的都相同，那么他们的相似哈希也几乎相同。</p>
+<h2 id="与数学的对应关系"><a href="#与数学的对应关系" class="headerlink" title="与数学的对应关系"></a>与数学的对应关系</h2><h3 id="集合论"><a href="#集合论" class="headerlink" title="集合论"></a>集合论</h3><p>&emsp;&emsp;哈希从本质上来说就是一种<strong>映射关系</strong>，把源空间记为集合A，目标空间记为集合B，哈希就是集合A到集合B中一种<strong>映射关系</strong>，这种映射关系在集合论中可抽象概括为<strong>一般映射</strong>、<strong>单射</strong>、<strong>满射</strong>、<strong>双射</strong>，因此哈希函数的各种性质也可以结合集合论进行研究。</p>
+<h3 id="数论"><a href="#数论" class="headerlink" title="数论"></a>数论</h3><p>&emsp;&emsp;对于冲突解决的增量队列的选取根据实际情况选取不同的<strong>数列</strong>，<strong>数列</strong>可以包括等差线性数列、二次数列、斐波那契等等，具体数列性质可以结合数论深入研究，从而构造出不同的冲突解决方案。</p>
+<h3 id="信息论（应用数学之一）"><a href="#信息论（应用数学之一）" class="headerlink" title="信息论（应用数学之一）"></a>信息论（应用数学之一）</h3><p>&emsp;&emsp;在信息论中，两个等长字符串之间的汉明距离是两个字符串对应位置的不同字符的个数，换句话说，它就是将一个字符串变换成另外一个字符串所需要替换的字符个数，可以在通信中累计定长二进制字中发生翻转的错误数据位，所以它也被称为信号距离。</p>
+<p>&emsp;&emsp;另外二进制字符串的汉明距离也等于n维超正方体两个顶点之间的曼哈顿距离，其中n是两个字串的长度。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>&emsp;&emsp;既然专栏叫做互联网架构的数学解释，就以整体架构中各层依赖图以及公式进行总结，以哈希为中心的互联网架构依赖图如下：</p>
+<p>&emsp;&emsp;重要概念或知识点的数学公式：</p>
+<blockquote>
+<p>哈希：\(value = hash(key)\)或缩写为\(v = h(k)\)</p>
+</blockquote>
+<blockquote>
+<p>直接定址法：\(v = a*k + b\)</p>
+</blockquote>
+<blockquote>
+<p>除留取余法：\(v = k \ mod \ p(p \le m)\)</p>
+</blockquote>
+<blockquote>
+<p>开放寻址法：\(v = h(k) + d_i,di \in D \)</p>
+</blockquote>
+<blockquote>
+<p>再散列法: \(v = h_i(k),i = 1,\dotsc,m\)</p>
+</blockquote>
+<blockquote>
+<p>一致性哈希:<br>$$v_k = h_1(k)$$ </p>
+<p>$$v_{n_i} = h_2(n_i),i=1,\dotsc,m$$</p>
+<p>$$v = v_{n_i},i =  {\arg\min_{i} v_{n_i} - v_k} $$</p>
+</blockquote>
+<blockquote>
+<p>相似哈希: </p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/架构/" rel="tag"># 架构</a>
+          
+            <a href="/tags/数学/" rel="tag"># 数学</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/01/internet-architecture-math-start/" rel="next" title="互联网架构的数学解释——发刊词">
+                <i class="fa fa-chevron-left"></i> 互联网架构的数学解释——发刊词
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/02/internet-architecture-math-definition/" rel="prev" title="互联网架构的数学解释——互联网架构定义及特性">
+                互联网架构的数学解释——互联网架构定义及特性 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Hooke</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希相关基础知识"><span class="nav-number">1.</span> <span class="nav-text">哈希相关基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希函数"><span class="nav-number">1.2.</span> <span class="nav-text">哈希函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希表"><span class="nav-number">1.3.</span> <span class="nav-text">哈希表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与上层各问题域联系"><span class="nav-number">2.</span> <span class="nav-text">与上层各问题域联系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在“索引”中的应用"><span class="nav-number">2.1.</span> <span class="nav-text">在“索引”中的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在“压缩”中的应用"><span class="nav-number">2.2.</span> <span class="nav-text">在“压缩”中的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在“加密”中的应用"><span class="nav-number">2.3.</span> <span class="nav-text">在“加密”中的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在“负载均衡”中的应用"><span class="nav-number">2.4.</span> <span class="nav-text">在“负载均衡”中的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一致性哈希"><span class="nav-number">2.4.1.</span> <span class="nav-text">一致性哈希</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在“拆分合并”中的应用"><span class="nav-number">2.5.</span> <span class="nav-text">在“拆分合并”中的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在“搜索”中的应用"><span class="nav-number">2.6.</span> <span class="nav-text">在“搜索”中的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#相似哈希"><span class="nav-number">2.6.1.</span> <span class="nav-text">相似哈希</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与数学的对应关系"><span class="nav-number">3.</span> <span class="nav-text">与数学的对应关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集合论"><span class="nav-number">3.1.</span> <span class="nav-text">集合论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数论"><span class="nav-number">3.2.</span> <span class="nav-text">数论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信息论（应用数学之一）"><span class="nav-number">3.3.</span> <span class="nav-text">信息论（应用数学之一）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hooke</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+    
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

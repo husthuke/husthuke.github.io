@@ -277,6 +277,1088 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/reading-notes-ycfxhxss/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hooke">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/22/reading-notes-ycfxhxss/" itemprop="url">
+                  Pyhton机器学习——预测分析核心算法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-22 11:44:20 / Modified: 11:56:43" itemprop="dateCreated datePublished" datetime="2018-11-22T11:44:20+08:00">2018-11-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/reading-notes/" itemprop="url" rel="index"><span itemprop="name">reading-notes</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>本书主要针对两大类算法簇进行了预测类算法讲解，并使用水雷-岩石和红酒数据集进行了实例讲解，在讲解算法并未深入十分基础的数学原理以及数学推导，而更多的是将原理转化成容易理解的语言，并介绍了实际使用中的相关模型选择经验，对预测分析任务实战有一定指导意义。</p>
+<h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h2><h3 id="章节递进关系"><a href="#章节递进关系" class="headerlink" title="章节递进关系"></a>章节递进关系</h3><h4 id="1-关于预测的两类核心算法"><a href="#1-关于预测的两类核心算法" class="headerlink" title="1 关于预测的两类核心算法"></a>1 关于预测的两类核心算法</h4><p>该书主要介绍在实际使用中比较常见以及效果好的两类算法簇，包括惩罚回归方法以及集成方法。</p>
+<ul>
+<li>惩罚回归方法：主要是以传统的线性回归中最小二乘法求解为基础，加上惩罚项进行约束，避免过拟合问题。</li>
+<li>集成方法：通过多个弱学习器进行集成来整体提升模型的效果，主要包括提升决策树、随机森林、投票决策树、提升二叉树等，又可以抽象的归纳为bootsing方法以及bagging方法。</li>
+</ul>
+<p>不同的算法在不同类型的数据集（包括大数据集、小数据集、宽数据集、高数据集等，同时数据集的特征可能是连续特征较多也可能是离散数据特征较多）上表现可能存在较大的差异，因此在进行预测算法选择时要分析探索数据集的类型以及特点选择不同的算法。</p>
+<p>构建预测模型的流程主要包括：</p>
+<ul>
+<li>构造一个机器学习问题：如果充分理解业务，并进行抽象以及问题定义，该工作十分重要，问题定义的是否准确直接决定了该预测模型最终效果的好坏。</li>
+<li>特征提取以及特征工程：该工作需要反复迭代，寻找对预测结果有帮助的特征，可能会占据整个工作的80%-90%的时间。</li>
+<li>模型性能评估：一定要在测试集上充分验证模型的性能，否在在进行实际的线上处理时可能会有很多意想不到的问题。</li>
+</ul>
+<h4 id="2-通过理解数据来了解问题"><a href="#2-通过理解数据来了解问题" class="headerlink" title="2 通过理解数据来了解问题"></a>2 通过理解数据来了解问题</h4><p>因变量与预测结果均可分为数值类型以及类别类型，数值类型是指连续的数值变量或者比较大小存在意义的离散变量，类别类型变量不同值之间没有顺序关系。</p>
+<p>根据因变量与预测结果类型不同选取不同的模型。预测结果类型为数值类型的又可称为回归任务，预测结果类型为类别类型的为分类任务，特别的当结果类型类别自由两类时为二分类问题。</p>
+<p>因变量也可以称为：属性、预测因子、特征、独立变量、输入<br>预测结果也可成为：标签、目标、依赖变量、响应</p>
+<h4 id="3-预测模型的构建-平衡性能、复杂性以及大数据"><a href="#3-预测模型的构建-平衡性能、复杂性以及大数据" class="headerlink" title="3 预测模型的构建:平衡性能、复杂性以及大数据"></a>3 预测模型的构建:平衡性能、复杂性以及大数据</h4><p>预测模型总体上来说可分为线性模型以及非线性模型，一般来说非线性模型的复杂度高于线性模型，数据的预测因子越多，模型也就越复杂，如果对于数据量较少的样本来说，如果模型过于复杂就容易出现过拟合问题。</p>
+<p>问题的复杂性也容易影响模型的拟合情况，通过训练数据的分布也可以从某种程度上反映出问题的复杂程度，以分类问题来说，如果训练数据的分布存在明显的分界，则说明该分类问题件比较简单，如果分布错综复杂，说明该分类问题比较复杂。</p>
+<p>选择预测模型的基本原则：</p>
+<ul>
+<li>简单的问题选取线性模型等复杂度较低的模型</li>
+<li>复杂的问题选取非线性等复杂度较高的模型</li>
+<li>对于训练时间敏感的问题尽量避开复杂度过高的模型</li>
+</ul>
+<p>预测结果类型不同需要选取不同的评价指标，对于回归问题多选用MAE，MSE作为评价模型，对于二分类问题多采用ROC曲线或者AUC指标作为评价模型。</p>
+<p>控制模型过拟合的方法：</p>
+<ul>
+<li>使用前向逐步回归来控制过拟合</li>
+<li>通过惩罚回归系数来控制过拟合</li>
+</ul>
+<h4 id="4-惩罚线性回归模型"><a href="#4-惩罚线性回归模型" class="headerlink" title="4 惩罚线性回归模型"></a>4 惩罚线性回归模型</h4><p>为了解决线性模型过拟合问题，惩罚线性回归模型都是在损失函数中增加各种惩罚项来增加模型的泛化能力。</p>
+<p>因此惩罚线性回归的如下几个特点使得该模型十分有效：</p>
+<ul>
+<li>模型训练足够快速</li>
+<li>部署是预测速度较快</li>
+<li>变量的重要信息易于解释</li>
+<li>特别是对那些适用于采用线性模型进行处理的问题</li>
+</ul>
+<p>不同种类惩罚线性回归模型的惩罚项：</p>
+<ul>
+<li><p>Ridge回归</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\frac&#123;\lambda\beta^T\beta&#125;&#123;2&#125; = \frac&#123;\lambda&#123;(\beta_1^2+\beta_1^2+\cdots+\beta_n^2)&#125;&#125;&#123;2&#125; = \frac&#123;\Vert\beta\Vert^2&#125;&#123;2&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Lasso回归</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\lambda\Vert\beta\Vert_1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ElasticNet回归</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\lambda_1\Vert\beta\Vert_1 + \lambda_2\Vert\beta\Vert^2</span><br></pre></td></tr></table></figure>
+<p>可以将类型变量进行onehot编码处理之后进行再进行线性回归预测</p>
+<h4 id="5-使用惩罚线性方法来构建预测模型"><a href="#5-使用惩罚线性方法来构建预测模型" class="headerlink" title="5 使用惩罚线性方法来构建预测模型"></a>5 使用惩罚线性方法来构建预测模型</h4><p>采用惩罚线性回归模型的具体案例，代码见：</p>
+<h4 id="6-集成方法"><a href="#6-集成方法" class="headerlink" title="6 集成方法"></a>6 集成方法</h4><p>本章主要介绍了bagging，gradient boosting以及random forest。</p>
+<ul>
+<li>bagging：通过多个基学习器进行带权重的投标决定最终分类。</li>
+<li>gradient boosting：通过多个基学习期进行多轮学习，每一轮的输入采用前一轮的错误残差，也就是说上一轮出现错误的更多的参与了下一轮的学习。</li>
+<li>random forest：在bagging基础上随机的选择属性构建决策树。</li>
+</ul>
+<h4 id="7-用Python构建集成模型"><a href="#7-用Python构建集成模型" class="headerlink" title="7 用Python构建集成模型"></a>7 用Python构建集成模型</h4><p>具体集成方法的具体案例，代码见：</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/03/reading-notes-gjssjqxxxt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hooke">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/03/reading-notes-gjssjqxxxt/" itemprop="url">
+                  构建实时机器学习系统
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-11-03 17:19:05" itemprop="dateCreated datePublished" datetime="2018-11-03T17:19:05+08:00">2018-11-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-11-22 14:24:46" itemprop="dateModified" datetime="2018-11-22T14:24:46+08:00">2018-11-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/reading-notes/" itemprop="url" rel="index"><span itemprop="name">reading-notes</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>&emsp;&emsp;本书主要介绍了在构建实时机器学习中需要考虑的事项、使用的工具（包括消息队列工具RabbitMQ、存储工具mysql和nosql、日志收集套件ELK、集群部署工具Docker）、以及通用的一些设计模式，并在讲解这些设计模式的同时介绍了其适用的场景。<br>&emsp;&emsp;个人认为最具特点的一章是第十章总结了机器学习系统的设计模式，包括读、更新、处理多个方面。</p>
+<h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h2><h3 id="章节递进关系"><a href="#章节递进关系" class="headerlink" title="章节递进关系"></a>章节递进关系</h3><h3 id="实时机器学习方法"><a href="#实时机器学习方法" class="headerlink" title="实时机器学习方法"></a>实时机器学习方法</h3><h4 id="1-实时机器学习综述"><a href="#1-实时机器学习综述" class="headerlink" title="1 实时机器学习综述"></a>1 实时机器学习综述</h4><p>&emsp;&emsp;从机器学习的基本概念入手，首先介绍了什么是机器学习：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">吴恩达定义：继续学习是一门学科，它旨在让计算机自主工作，而不需要刻意编程。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SAS定义：机器学习是一种方法，它旨在用数据分析分析自动化模型的建立。</span><br></pre></td></tr></table></figure>
+<p>作者对商用机器学习应该包括的内容：</p>
+<ul>
+<li>用数据说话</li>
+<li>高度自动化</li>
+<li>鲁棒性</li>
+</ul>
+<p>&emsp;&emsp;然后在此基础上介绍了机器学习的发展历史、领域分类，并总结了实时机器学习系统的基本要求：</p>
+<ul>
+<li>模型的可扩展性</li>
+<li>模型运用的低延迟性</li>
+<li>训练数据的私密性</li>
+</ul>
+<p>&emsp;&emsp;最后以Netflix的机器学习竞赛为例介绍了用户被逆向工程以及较难在生产环境中使用的问题。</p>
+<h4 id="2-实时监督是机器学习"><a href="#2-实时监督是机器学习" class="headerlink" title="2 实时监督是机器学习"></a>2 实时监督是机器学习</h4><p>&emsp;&emsp;监督式学习旨在利用利用训练集，建立因变量和自变量自建的函数映射关系：</p>
+<p>$${y = f(x;b;e)}$$</p>
+<p>&emsp;&emsp;实时机器学习实战思路：</p>
+<ul>
+<li>不要重复造轮子</li>
+<li>没有模型是完美的</li>
+<li>重视上下游生态</li>
+</ul>
+<p>&emsp;&emsp;衡量回归预测统计量的基本指标：</p>
+<ul>
+<li>均方误差</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MSE = \frac&#123;1&#125;&#123;n&#125;\sum\limits_&#123;i=1&#125;^n(\hat&#123;Y_i&#125; - Y_i)^2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>绝对误差中位数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MAE = Median(|\hat&#123;Y_i&#125; - Y_i|)</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;衡量分类的统计量：</p>
+<ul>
+<li>准确率</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\text&#123;准确率&#125; = \frac&#123;\text&#123;真阳性&#125;&#125;&#123;\text&#123;真阳性&#125; + \text&#123;假阳性&#125;&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>召回率</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\text&#123;召回率&#125; = \frac&#123;\text&#123;真阳性&#125;&#125;&#123;\text&#123;真阳性&#125; + \text&#123;假阴性&#125;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-数据分析工具Pandas"><a href="#3-数据分析工具Pandas" class="headerlink" title="3 数据分析工具Pandas"></a>3 数据分析工具Pandas</h4><p>&emsp;&emsp;以苹果公司股价数据为例介绍了使用pandas导入数据、探索数据以及展示数据，包括：read_csv、head、tail、map、drop、mean、min、max、describe等方法的使用。</p>
+<h4 id="4-机器学习工具Scikit-learn"><a href="#4-机器学习工具Scikit-learn" class="headerlink" title="4 机器学习工具Scikit-learn"></a>4 机器学习工具Scikit-learn</h4><p>&emsp;&emsp;scikit-learn是一款通用的机器学习库，以流水线pipeline的方式将机器学习中数据预处理、模型建立、训练、验证、可视化进行封装，便于高效使用。</p>
+<p>机器学习模块包括：</p>
+<ul>
+<li>sklearn.cluster 聚类分析</li>
+<li>sklearn.manifold_learning 流行分析</li>
+<li>sklearn.decomposition 矩阵分解</li>
+<li>sklearn.emsemble 集成算法</li>
+<li>sklearn.gaussian_process 高斯过程</li>
+<li>sklearn.linear_model 线性模型</li>
+<li>sklearn.mixture 高斯混合模型</li>
+<li>sklearn.native_bayes 朴素贝叶斯</li>
+<li>sklearn.neighors 邻近估计</li>
+<li>sklearn.neural_network 神经网络</li>
+<li>sklearn.tree 决策树</li>
+</ul>
+<h3 id="实时机器学习架构"><a href="#实时机器学习架构" class="headerlink" title="实时机器学习架构"></a>实时机器学习架构</h3><h4 id="5-实时机器学习架构设计"><a href="#5-实时机器学习架构设计" class="headerlink" title="5 实时机器学习架构设计"></a>5 实时机器学习架构设计</h4><p>&emsp;&emsp;设计实时机器学习系统需要考虑的几个方面：</p>
+<ul>
+<li>数据通量和存量估计</li>
+<li>响应时间</li>
+<li>和已有系统之间的关系</li>
+<li>系统带来的意义</li>
+</ul>
+<p>&emsp;&emsp;lambda架构的分层设计：</p>
+<ul>
+<li>实时响应层</li>
+<li>快速响应层</li>
+<li>批处理层</li>
+</ul>
+<p>&emsp;&emsp;常用的实时机器学习架构：</p>
+<ul>
+<li>瀑布流架构：比较通用的架构，不仅仅是实时机器学习中采用，在很多业务系统也会采用该架构，主要思想是以MQ为媒介，将整个业务流程拆分成像瀑布一样从上游到下游的形式执行。</li>
+<li>并行响应架构：主要思想是将机器学习任务通过负载均衡的方式在机器学习集群中并行执行，并将处理结果一MQ的机制通知后端业务系统进行处理。</li>
+<li>混合架构：结合上述两种架构</li>
+</ul>
+<h4 id="6-集群部署工具Docker"><a href="#6-集群部署工具Docker" class="headerlink" title="6 集群部署工具Docker"></a>6 集群部署工具Docker</h4><p>&emsp;&emsp;通过Docker相关工具快速集群化部署模型。</p>
+<h4 id="7-实时消息队列和RabbitMQ"><a href="#7-实时消息队列和RabbitMQ" class="headerlink" title="7 实时消息队列和RabbitMQ"></a>7 实时消息队列和RabbitMQ</h4><p>&emsp;&emsp;RabbitMQ的主要构成部分：</p>
+<ul>
+<li>消息：信息传递的基本单元，主要包括具体的消息payload、路由名（routing key）、投递保证相关控制信息。</li>
+<li>消息队列：是进行消息存储、读取的基本组件，用于控制消息的持久化。</li>
+<li>网络连接：包括connection、channel，用于控制消息的网络传输以及在网络传输中的复用机制。</li>
+<li>消息交换中心：路由组件，控制消息如何到达具体的队列。</li>
+</ul>
+<p>&emsp;&emsp;常用交换中心模式：</p>
+<ul>
+<li>直连结构</li>
+<li>扇形结构</li>
+<li>话题结构</li>
+<li>报头结构</li>
+</ul>
+<h4 id="8-实战数据库综述"><a href="#8-实战数据库综述" class="headerlink" title="8 实战数据库综述"></a>8 实战数据库综述</h4><p>&emsp;&emsp;介绍传统关系型数据库与NOSQL数据库的特点，以及在不同业务场景中的选型参考。</p>
+<h4 id="9-实时数据监控ELK集群"><a href="#9-实时数据监控ELK集群" class="headerlink" title="9 实时数据监控ELK集群"></a>9 实时数据监控ELK集群</h4><p>&emsp;&emsp;介绍ELK套件工具进行日志的采集，查询以及展示，在介绍了elasticsearch的基本文档查询功能的基础上，着重对es的对偶搜索(percolate)进行了说明。<br>对偶搜索是与普通文档搜索相反的一种搜索方式，传统搜索是将文档存入es，以查询条件进行搜索，而对偶搜索是将查询或者规则存入es，将文档传入进行搜索或者匹配。</p>
+<h4 id="10-机器学习系统设计模式"><a href="#10-机器学习系统设计模式" class="headerlink" title="10 机器学习系统设计模式"></a>10 机器学习系统设计模式</h4><p>&emsp;&emsp;从具体使用的几个点对系统的设计模式进行了总结，个人认为这些系统的设计模式并不仅仅适用于机器学习系统，也适用于业务系统或者中台系统。</p>
+<h5 id="读"><a href="#读" class="headerlink" title="读"></a>读</h5><ul>
+<li>高速键值模式，适用于实时层现预处理结果、对网页访问等进行技术、关键词扩展、机器学习模型参数存储等场景</li>
+<li>缓存高速查询模式，适用于机器学习模型因变量存储、机器学习模型结果存储等场景。</li>
+</ul>
+<h5 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h5><ul>
+<li>异步数据库更新模式，适用于推荐系统内容更新、机器学习参数更新等场景。</li>
+<li>请求从定向模式，适用于广告后端系统更新、同城物流公司后端更新等场景。</li>
+</ul>
+<h5 id="处理"><a href="#处理" class="headerlink" title="处理"></a>处理</h5><ul>
+<li>硬实时并行模式，适用于在线广告实时点击预估、智能语音服务器端等场景。</li>
+<li>分布式任务队列模式，类似于流式计算，将数据的流动抽象成有向无环图，图中节点划分为数据发出节点（Spout）和数据处理节点（Bolt），采用调度框架进行统一的任务调度，适用于在线票务系统等场景。</li>
+<li>批实时处理模式，类似于离线计算，适用于社交舆情分析、金融数据分析等场景。</li>
+</ul>
+<h3 id="未来展望"><a href="#未来展望" class="headerlink" title="未来展望"></a>未来展望</h3><h4 id="11-Serverless架构"><a href="#11-Serverless架构" class="headerlink" title="11 Serverless架构"></a>11 Serverless架构</h4><p>&emsp;&emsp;介绍Serverless架构的发展历史，并将Serverless平台架构划分为函数存储层、函数管理层以及函数运行层三层。</p>
+<h4 id="12-深度学习的风口"><a href="#12-深度学习的风口" class="headerlink" title="12 深度学习的风口"></a>12 深度学习的风口</h4><p>&emsp;&emsp;归纳总结了机器学习的难点包括解释性工具缺失、应用场景限制和模型成本限制，并比较了目前各机器学习平台。<br>&emsp;&emsp;深度学习平台功能模块</p>
+<ul>
+<li>CPU+GPU控制、通信层</li>
+<li>内存、变量管理层</li>
+<li>基本运算层，比如矩阵操作</li>
+<li>基本简单函数层，比如激活函数</li>
+<li>求导模块</li>
+<li>神经网络基本模块，比如卷积层、池化层等</li>
+<li>整合以及优化求解。</li>
+</ul>
+<h2 id="知识点框架图"><a href="#知识点框架图" class="headerlink" title="知识点框架图"></a>知识点框架图</h2>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/11/ai-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hooke">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/11/ai-2/" itemprop="url">
+                  互联网后端开发转型(转行)AI之路——规划篇
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-10-11 13:36:57" itemprop="dateCreated datePublished" datetime="2018-10-11T13:36:57+08:00">2018-10-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-10-23 12:36:07" itemprop="dateModified" datetime="2018-10-23T12:36:07+08:00">2018-10-23</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI转型/" itemprop="url" rel="index"><span itemprop="name">AI转型</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>&emsp;&emsp;转型或者转行是一个牵涉面比较广的话题，一段时间之前写过一个关于转型的思想篇（），从背景等各方面都进行了分析，本篇文章为系列文章的第二篇，结合自身当前工作情况以及如下目标方向制定一个近中远不同阶段的实施规划。</p>
+<blockquote>
+<p><strong>以知识图谱+自适应学习这一类与行业业务结合比较密切的技术为切入口，结合行业应用配合产品将AI技术应用到具体AI产品中，同时在这个过程中深入学习，积累AI开发经验，从而达到使用AI算法的最新研究成功逐步打磨优化产品的目的。</strong></p>
+</blockquote>
+<h2 id="近期（1年）"><a href="#近期（1年）" class="headerlink" title="近期（1年）"></a>近期（1年）</h2><ul>
+<li>利用工作之余的时间系统学习机器学习以及机器学习相关知识。（201810——201903）</li>
+<li>在工作中争取尝试参与偏策略以及算法的工作，前期最好能够与后端落地进行结合，在工作中快速积累。（201811——201910）</li>
+<li>复习并加强知识图谱+自适应学习相关内容，并跟进学术界以及产业界应用的前沿技术，做好知识方面的储备。（201903——201910）</li>
+</ul>
+<h2 id="中期（2-5年）"><a href="#中期（2-5年）" class="headerlink" title="中期（2-5年）"></a>中期（2-5年）</h2><ul>
+<li>强化数学理论基础，建立更加完善的体系化数学建模思维。（201910——202110）</li>
+<li>深度参与并尝试主导教育AI项目的产品研发工作，积累AI落地实施的工程化经验。（202008-202308）</li>
+</ul>
+<h2 id="远期（5年往后）"><a href="#远期（5年往后）" class="headerlink" title="远期（5年往后）"></a>远期（5年往后）</h2><ul>
+<li>定向在职博士，加深理论背景并扩展眼界</li>
+<li>继续深耕教育与AI的结合方向，在AI工程红利期打造系统化的教育AI平台，更好的赋能公司业务发展甚至是真个互联网教育行业。</li>
+</ul>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>&emsp;&emsp;以上规划是按照目前调研数据并结合目前工作情况而制定的，难免会存在计划赶不上变化的情况，后续具体也会定期的回顾、思考以及调整。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/11/ai-transformation-mind/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hooke">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/11/ai-transformation-mind/" itemprop="url">
+                  互联网后端开发转型(转行)AI之路——思想篇
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-10-11 13:36:57" itemprop="dateCreated datePublished" datetime="2018-10-11T13:36:57+08:00">2018-10-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-10-23 12:35:58" itemprop="dateModified" datetime="2018-10-23T12:35:58+08:00">2018-10-23</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI转型/" itemprop="url" rel="index"><span itemprop="name">AI转型</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>&emsp;&emsp;一直以来工作都是以做互联网后端相关开发为主，各种业务系统、专家系统相关产品也做了不少，看到最近2年AI的兴起对各行业所带来的变化，个人对后续的职业生涯发展也产生了些许忧虑，并进行了一些思考，如何才能够跟随技术的发展不被时代淘汰也是我最近一段时间以来考虑的问题，正好这段时间由于一些原因稍微有些闲暇思考的时间，将相应的思考决策过程记录，以便以后查阅反省。</p>
+<h2 id="是否要转型AI"><a href="#是否要转型AI" class="headerlink" title="是否要转型AI"></a>是否要转型AI</h2><p>&emsp;&emsp;谈到是否要转型AI这个话题，可以说是仁者见仁智者见智，特别是目前所从事的岗位方向还不错的情况下谈论这个话题就更显纠结了，虽然互联网各方面都比较热门，但是谁又能保证不像20年前的通信行业呢。虽然说互联网和AI有交集，但是还是存在一些差异，20年前通信和互联网也有不少交集。从我自身考虑转型AI肯定是要进行的，基本原因大致如下：</p>
+<ul>
+<li>我个人是一个比较爱最求新技术的人，AI这个半个世纪以来的风口对我来说值的一追。</li>
+<li>开始读研究生时（2009年）考虑过将课题选为人工智能方向，但是当时现实情况下的种种原因没有实施成功，对我来说还是有这方面的兴趣爱好</li>
+<li>以AI从业者的身份投入到AI所带来的行业变化，同时在其中感受波澜壮阔的社会巨变可以带来比较强烈的内心满足感。</li>
+</ul>
+<h2 id="个人背景介绍"><a href="#个人背景介绍" class="headerlink" title="个人背景介绍"></a>个人背景介绍</h2><p>&emsp;&emsp;为什么要相关背景介绍呢，从职业发展规划，特别是涉及到工作上的转型完全是因人而异的，需要充分的考虑到个人的背景以及现状，同样一条方向或者道路对某个特别合适，对另外一个人来说可能是灾难。</p>
+<ul>
+<li>基本信息：32，北京，户口、房、车均具备，已婚丁克。</li>
+<li>教育背景：见知乎个人资料</li>
+<li>工作背景：工作6年，3年左右网络管理系统、网络诊断系统开发（百万级网元管理）经验；2年左右互联网医疗工作经验，包括SASS架构电子病历、移动护理、线上问诊、护理诊疗助手等系统（上百家医院信息互联）；1年左右互联网教育工作经验，包括课程管理、在线教室等系统开发。</li>
+</ul>
+<h2 id="优劣势分析"><a href="#优劣势分析" class="headerlink" title="优劣势分析"></a>优劣势分析</h2><p>&emsp;&emsp;各种问题分析模型其实挺多的，就先采取比较通用的简要SWOT模型进行分析。</p>
+<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul>
+<li>自认为数学基础较好（高考，大学及研究生阶段数学相关考试基本都是接近满分），当然比知乎上手推狭义相对论的大神差远了。</li>
+<li>经历过大型系统的开发，具备较好的系统工程化及落地经验。</li>
+<li>具备知识密集型行业经验，医疗以及教育，都是AI应用比较火的潜力行业，转型AI的话具备一定领域知识。</li>
+<li>无太大的经济以及精力上的羁绊。</li>
+</ul>
+<h3 id="劣势："><a href="#劣势：" class="headerlink" title="劣势："></a>劣势：</h3><ul>
+<li>年龄稍大，转型的话沉没成本比较高。</li>
+<li>从事的开发大多是偏向业务系统，缺乏算法、机器学习相关AI项目经验。</li>
+<li>目前的工作岗位与AI相关度不高，短期内可能得不到项目实战的积累</li>
+</ul>
+<h3 id="机遇："><a href="#机遇：" class="headerlink" title="机遇："></a>机遇：</h3><ul>
+<li>人工智能目前正处于发展风口，并且未来大概率发展前景良好</li>
+</ul>
+<h3 id="威胁："><a href="#威胁：" class="headerlink" title="威胁："></a>威胁：</h3><ul>
+<li></li>
+</ul>
+<h2 id="转型基本思路"><a href="#转型基本思路" class="headerlink" title="转型基本思路"></a>转型基本思路</h2><p>AI发展阶段csdn创始人蒋涛的观点我还是比较认同，如下图<br><a href="http://www.ctoutiao.com/387884.html" target="_blank" rel="noopener">http://www.ctoutiao.com/387884.html</a><br>因此AI相关研发岗位在不同阶段的需求也会有所不同，不同研发岗位的要求也有所不同，大致上也可分为基础算法岗位、通用技术岗位、业务技术岗位。</p>
+<p>通过上面对自身的优劣势分析，如果直接一头扎入机器学习，深度学习等比较偏算法的领域，在时间以及经验上可能并不是很容易做到不错的成绩，同时考虑到目前校招的竞争都如此激烈，对基本功的要求比较高，更别谈社招对相关经验的要求，可以说要求更高，如果说校招可能还会带有培养的意思，企业对于社招的要求更多都是能够快速出活，带来效益。</p>
+<p>校招激烈程度可以参看如下问题：<br><a href="https://www.zhihu.com/question/286925266" target="_blank" rel="noopener">https://www.zhihu.com/question/286925266</a></p>
+<p>综合考虑将转型AI方向定在业务技术岗位，业务技术岗位也有不少方向，可参考《AI技术人才成长路线图》<br><a href="https://blog.csdn.net/eNohtZvQiJxo00aTz3y8/article/details/79776075" target="_blank" rel="noopener">https://blog.csdn.net/eNohtZvQiJxo00aTz3y8/article/details/79776075</a></p>
+<p>也可参考<br><a href="https://www.zhihu.com/question/265041005/answer/344238588" target="_blank" rel="noopener">https://www.zhihu.com/question/265041005/answer/344238588</a></p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><blockquote>
+<p><strong>以知识图谱+自适应学习这一类与行业业务结合比较密切的技术为切入口，结合行业应用配合产品将AI技术应用到具体AI产品中，同时在这个过程中深入学习，积累AI开发经验，从而达到使用AI算法的最新研究成功逐步打磨优化产品的目的。</strong></p>
+</blockquote>
+<p>&emsp;&emsp;凡是预则立，不预则废，在确定好思路之后，后续会结合目前的工作情况制定一个近中远不同阶段的实施计划。</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>&emsp;&emsp;本来转型属于个人职业生涯规划问题，与自身情况联系密切，直接进行参考意义不大，但是其中的分析以及思考过程在某种程度上也可以供目前想转型但是犹豫不决的“大龄”开发人员参考。由于本人在之前的某次决策中目前看来可能犯了些许错误，走了一些弯路，记录到知乎上也是希望能够集思广益，做到尽量的正确。</p>
+<p>&emsp;&emsp;相比知乎上一些介绍转型AI的经验，基本都是转完之后的介绍，结果都是明确的了，我的个人案例属于在转型思想期就进行了记录，中间的过程以及决策因素可能多变，结果也是未知的，希望知乎上的大神大牛们给出一些建议和指导，便于及时修正。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/02/reading-notes-bhsduxxytf/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hooke">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/02/reading-notes-bhsduxxytf/" itemprop="url">
+                  白话深度学习与TensorFlow
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-09-02 14:24:56" itemprop="dateCreated datePublished" datetime="2018-09-02T14:24:56+08:00">2018-09-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-11-02 17:08:45" itemprop="dateModified" datetime="2018-11-02T17:08:45+08:00">2018-11-02</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/reading-notes/" itemprop="url" rel="index"><span itemprop="name">reading-notes</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>&emsp;&emsp;本书以较为通俗的语言介绍了深度学习的方方面面，从机器学习的基本任务到CNN、RNN，再到残差网络、强化学习、GAN等；讲述时将部分公式用比较通俗的语言进行了解释，便于建立直观的认识；使用TensorFlow工具介绍了手写板、图片分类、自动文本生成等基础学习案例。<br>&emsp;&emsp;本人认为最具特点的一章是第七章解释了一些机器学习中通用的问题，比如归一化、正则化、超参数等等。</p>
+<p>## </p>
+<h3 id="基础篇"><a href="#基础篇" class="headerlink" title="基础篇"></a>基础篇</h3><h4 id="1-机器学习是什么"><a href="#1-机器学习是什么" class="headerlink" title="1 机器学习是什么"></a>1 机器学习是什么</h4><p>&emsp;&emsp;介绍基本学习基本概念，基本任务的分类包括分类、聚类、回归，以及结合多种任务的综合应用。</p>
+<h4 id="2-深度学习是什么"><a href="#2-深度学习是什么" class="headerlink" title="2 深度学习是什么"></a>2 深度学习是什么</h4><p>&emsp;&emsp; 介绍神经网络的基本结构，包括神经元、激活函数等，深度学习的基本概念，并解释了深度学习为什么具备这么强的特性，最后列举了目前基于深度学习的一些商业案例。</p>
+<h4 id="3-TensorFlow框架与安装"><a href="#3-TensorFlow框架与安装" class="headerlink" title="3 TensorFlow框架与安装"></a>3 TensorFlow框架与安装</h4><p>&emsp;&emsp; 介绍了TensorFlow框架的特点以及与其他框架的特性比较，并介绍了TensorFlow的集群、可视化、线上部署等高级特性。</p>
+<h3 id="原理与实践篇"><a href="#原理与实践篇" class="headerlink" title="原理与实践篇"></a>原理与实践篇</h3><h3 id="4-前馈神经网络"><a href="#4-前馈神经网络" class="headerlink" title="4 前馈神经网络"></a>4 前馈神经网络</h3><p>&emsp;&emsp; 首先介绍了导数、梯度下降、凸函数极值求解等基本概念，从线性回归求解入手逐步介绍神经网络的求解过程，在求解过程中解释了数据样本的训练集、验证集以及测试集。</p>
+<h3 id="5-手写板识别"><a href="#5-手写板识别" class="headerlink" title="5 手写板识别"></a>5 手写板识别</h3><p>&emsp;&emsp; 基于MNIST数据集，以TensorFlow为工具介绍了手写数字识别案例，介绍了一个机器学习项目的基本流程。</p>
+<h3 id="6-卷积神经网络"><a href="#6-卷积神经网络" class="headerlink" title="6 卷积神经网络"></a>6 卷积神经网络</h3><p>&emsp;&emsp; 首先介绍卷积、卷积核、池化、采样等基本概念，讲解了集中典型的CNN网络，包括VGG-16，GoogleNet等，最后使用CIFAR-10数据集进行了图片分类的案例分析。</p>
+<h3 id="7-综合问题"><a href="#7-综合问题" class="headerlink" title="7 综合问题"></a>7 综合问题</h3><p>&emsp;&emsp; 总结了在机器学习以及深度学习中的基本概念及其应用特点，包括归一化、正则化、梯度消息问题、参数初始化问题、超参数选取问题等</p>
+<h3 id="8-循环神经网络"><a href="#8-循环神经网络" class="headerlink" title="8 循环神经网络"></a>8 循环神经网络</h3><p>&emsp;&emsp;从隐马尔科夫链入手介绍序列数据处理的模型，讲解了RNN模型的基本结构以及训练过程，由于RNN梯度爆炸和梯度消失的的问题引入了目前业界更加常用的LSTM模型，LSTM模型主要是在RNN模型的基础上增加了状态，这个状态可以通过各种激活函数控制以不同的比例参与到下一个序列的输入，概括来说包括输入遗忘部分、状态更新部分以及输出部分；最后实践了自动文本生成和聊天机器人两个例子。</p>
+<h3 id="扩展篇"><a href="#扩展篇" class="headerlink" title="扩展篇"></a>扩展篇</h3><h4 id="9-残差神经网路"><a href="#9-残差神经网路" class="headerlink" title="9 残差神经网路"></a>9 残差神经网路</h4><h4 id="10-受限玻尔兹曼机"><a href="#10-受限玻尔兹曼机" class="headerlink" title="10 受限玻尔兹曼机"></a>10 受限玻尔兹曼机</h4><h4 id="11-强化学习"><a href="#11-强化学习" class="headerlink" title="11 强化学习"></a>11 强化学习</h4><h4 id="12-对抗学习"><a href="#12-对抗学习" class="headerlink" title="12 对抗学习"></a>12 对抗学习</h4><h4 id="13-有趣的深度学习应用"><a href="#13-有趣的深度学习应用" class="headerlink" title="13 有趣的深度学习应用"></a>13 有趣的深度学习应用</h4><h3 id="章节递进关系"><a href="#章节递进关系" class="headerlink" title="章节递进关系"></a>章节递进关系</h3><h2 id="知识点框架图"><a href="#知识点框架图" class="headerlink" title="知识点框架图"></a>知识点框架图</h2>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/02/internet-architecture-math-definition/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -323,12 +1405,24 @@
                 
               
 
-              <time title="Created: 2018-09-02 14:24:56 / Modified: 20:44:47" itemprop="dateCreated datePublished" datetime="2018-09-02T14:24:56+08:00">2018-09-02</time>
+              <time title="Created: 2018-09-02 14:24:56" itemprop="dateCreated datePublished" datetime="2018-09-02T14:24:56+08:00">2018-09-02</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-09-03 16:20:28" itemprop="dateModified" datetime="2018-09-03T16:20:28+08:00">2018-09-03</time>
               
             
           </span>
@@ -381,8 +1475,12 @@
       
         
           
-            <p>&emsp;&emsp;在这个互联网的时代，可以说人们的衣食住行等方方面面都离不开互联网带来的便利，互利网技术也成为了目前炙手可热的话题，同时互联网技术是一个很大的领域，气象万千、包括万象，也不是本专栏一言两语能够描述清楚的，本专栏只聚焦于互联网架构这一个相对来说比较小一些的范围。</p>
-<h2 id="1-互联网架构的定义"><a href="#1-互联网架构的定义" class="headerlink" title="1 互联网架构的定义"></a>1 互联网架构的定义</h2><p>&emsp;&emsp;架构一词就字面意思是指比喻事物的组织、结构、格局，并广泛应用在建筑领域，随着计算机和软件技术的发展，也逐渐将架构一词用于软件架构中，是一系列相关的抽象模式，用于指导各类软件系统各个方面的设计。互联网架构也就是指将软件运行在互联网之上形成的架构，但是如果仅仅只是讨论所谓的软件未免显得比较狭义了，目前的互联网架构应该是包括硬件、软件、网络甚至包括一整套构建、运维以及管理流程，笔者翻阅各类资料并未找到对互联网架构这一术语有着明确同意的定义，为避免歧义或者误会，本专栏将互利网架构定义如下：</p>
+            <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+
+<p>&emsp;&emsp;在这个互联网的时代，可以说人们的衣食住行等方方面面都离不开互联网带来的便利，互利网技术也成为了目前炙手可热的话题。同时互联网技术是一个很大的领域，气象万千、包括万象，也不是本专栏三言两语能够描述清楚的，本专栏只聚焦于互联网架构这一个相对来说比较小一些的范围。</p>
+<h2 id="1-互联网架构的定义"><a href="#1-互联网架构的定义" class="headerlink" title="1 互联网架构的定义"></a>1 互联网架构的定义</h2><p>&emsp;&emsp;架构一词就字面意思是指比喻事物的组织、结构、格局，并广泛应用在建筑领域，随着计算机和软件技术的发展，也逐渐将架构一词用于软件架构中，是一系列相关的抽象模式，用于指导各类软件系统各个方面的设计。互联网架构也就是指将软件运行在互联网之上形成的架构，但是如果仅仅只是讨论所谓的软件未免显得比较狭义了，目前的互联网架构应该是包括硬件、软件、网络甚至包括一整套构建、运维以及管理流程，笔者翻阅各类资料并未找到对互联网架构这一术语有着明确的定义，为避免歧义或者误会，本专栏将互利网架构定义如下：</p>
 <blockquote>
 <p><strong>互联网架构是指以互联网为依托，能够支撑用户正常“访问”为中心，并达到满足一定业务目的为前提，综合各种技术及管理形成的一整套组织和结构。</strong></p>
 </blockquote>
@@ -395,20 +1493,350 @@
 <li><strong>一致性</strong>（Consistency）：是指系统更新操作成功并返回客户端完成后，所有节点在同一时间的数据完全一致。</li>
 <li><strong>分区容错性</strong>（Partition tolerance）：是指系统在遇到某节点或网络分区故障的时候，仍然能够对外提供外界无法感知故障的“访问”的能力。</li>
 </ul>
-<h3 id="2-2-特性的指标量化"><a href="#2-2-特性的指标量化" class="headerlink" title="2.2 特性的指标量化"></a>2.2 特性的指标量化</h3><p>&emsp;&emsp;可用性<br>\(x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}\)</p>
-<p>$x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$<br>$$ \sqrt{a}+\sqrt{b}+\sqrt{c} $$</p>
-<h3 id="2-3-特性的数学解释"><a href="#2-3-特性的数学解释" class="headerlink" title="2.3 特性的数学解释"></a>2.3 特性的数学解释</h3><p>&emsp;&emsp;既然本专栏主要研究对象是互联网架构的数学解释，因此对于整体的特性</p>
-<h2 id="2-互联网架构的架构"><a href="#2-互联网架构的架构" class="headerlink" title="2 互联网架构的架构"></a>2 互联网架构的架构</h2><p>&emsp;&emsp;互联网架构作为本专栏的主要研究对象，也可以按照架构分析的视角对互联网架构进行分析，主要是通过不同层级的视角对互联网架构的林林总总进行分类梳理，力求抽象并找出共性。</p>
-<h3 id="2-1-域架构"><a href="#2-1-域架构" class="headerlink" title="2.1 域架构"></a>2.1 域架构</h3><p>&emsp;&emsp;域架构是指目前研究以及应用都比较多，实实在在用于支撑用户正常“访问”的架构，不同的层级从具体到抽象又可分为业务问题域架构、公共问题域架构、基础问题域架构。</p>
+<h3 id="2-2-特性的指标量化"><a href="#2-2-特性的指标量化" class="headerlink" title="2.2 特性的指标量化"></a>2.2 特性的指标量化</h3><p>&emsp;&emsp;可靠性一般采用MTTF(Mean time To Failure)平均失效前时间、MTTR(Mean Time to Restoration)平均恢复时间、MTBF(Mean time Between Failure)平均故障间隔时间这几个指标进行衡量，如图 所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MTTF = \frac&#123;\sum\limits_&#123;i=1&#125;^nTw_i&#125;&#123;N&#125;</span><br><span class="line"></span><br><span class="line">MTTR = \frac&#123;\sum\limits_&#123;i=1&#125;^n(Ts_i + Tr_i)&#125;&#123;N&#125;</span><br><span class="line"> </span><br><span class="line">MTBF = MTTF + MTTR</span><br></pre></td></tr></table></figure>
+<hr>
+<p>&emsp;&emsp;可用性是表示系统在任意时刻能够正常工作的概率，定义为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Availability = \frac&#123;MTTF&#125;&#123;MTTF + MTTR&#125; </span><br><span class="line">             = \frac&#123;\sum\limits_&#123;i=1&#125;^nTw_i/N&#125;&#123;\sum\limits_&#123;i=1&#125;^n(Tw_i + Ts_i + Tr_i)/N&#125;</span><br><span class="line">             = \frac&#123;\sum\limits_&#123;i=1&#125;^nTw_i&#125;&#123;\sum\limits_&#123;i=1&#125;^n(Tw_i + Ts_i + Tr_i)&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;通俗上常有几个九来表示，以一年为周期计算，不同九的级别对应不可用时间如下表：</p>
+<table>
+<thead>
+<tr>
+<th>可用性</th>
+<th>年服务不可用时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>99%（2个9）</td>
+<td>3.65天</td>
+</tr>
+<tr>
+<td>99.9%（3个9）</td>
+<td>8.76小时</td>
+</tr>
+<tr>
+<td>99.99%（4个9）</td>
+<td>52.56分钟</td>
+</tr>
+<tr>
+<td>99.999%（5个9）</td>
+<td>5.26分钟</td>
+</tr>
+<tr>
+<td>99.9999%（6个9）</td>
+<td>31.54秒</td>
+</tr>
+</tbody>
+</table>
+<p>&emsp;&emsp;通过上述量化指标可以看出，可用性与可靠性有所不同，但是也存在一定关联性，提高系统可靠性MTTF指标在某种程度上可以提高系统的可用性，但是可用性高的系统不一定可靠性高。比如A系统每年因故障中断十次，每次恢复平均要15分钟，B系统每年因故障中断2次，每次需6小时恢复。依据上述量化公式，A系统MTTF≈36.5天，Availability≈99.97%，B系统MTTF≈182.3天，Availability≈99.86%，则A系统可用性比B系统高，但可靠性比B系统差。 </p>
+<p>&emsp;&emsp;可扩展性是指扩展硬件或者增加节点来提高负载的能力，由于系统中存在不同组件，为简单便于计算，假设不同组件的扩展统一抽象为节点单元，每一个节点单元单独使用可承受的负载为tps，扩展至N个节点单元整个系统可承受的负载为TPS，定义系统的可扩展性为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Scalability = \frac&#123;TPS&#125;&#123;N*tps&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;一般系统随着节点单元的增加系统的负载能力并不是完全线性增加的，存在着一定的损耗，如果损耗越小，则称系统的可扩展性越好。</p>
+<hr>
+<p>&emsp;&emsp;弹性是指系统在向外扩展时动态处理负载所需的资源的能力，针对云的资源共享和互联网的使用量起伏特点所提出的“热扩展”要求，以非人工干预的、反应式的、近实时的资源调整来应对负载变化，尤其是不可预见的使用量高峰，从而提高服务容量、资源利用率和降低成本。</p>
+<p>&emsp;&emsp;定义系统随着时间变化预测访问量为f(t),定义系统最高负载能力随时间变化能力为g(t),假设在初始T0时刻系统预测访问量与系统最高负载相同，随着业务发展或者活动的推出，系统预测访问量会随之变化，对于弹性系统可以动态调整系统资源使得系统最高负载能力也随之变化，有点类似于对系统加上一定的激励以及对该激励做出的响应，如果系统对激励的响应越快越准备，则称系统的弹性越好，可定义为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Elasticity = \frac&#123;\int_&#123;T_0&#125;^&#123;T_1&#125; g(t) &#123;\rm d&#125;t&#125;&#123;\int_&#123;T_0&#125;^&#123;T_1&#125; f(t) &#123;\rm d&#125;t&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>&emsp;&emsp;在谈到一致性的时候，大家一般可能都会想到强一致性，最终一致性等等，但是个人总觉得稍显含糊，不够严谨，如果两个分布式系统都是最终一致性，能够有办法评价一致性的好坏呢？本文尝试通过定义量化的指标来衡量一致性，假设该系统的数据副本数量为N，一次成功写操作记为W(D,v)=0，在此时间T0之后如果任何的读操作R(D)均为v，则表示该系统是强一致性，如果存在某个时间T，对于任何T时间之后的读请求，均有R(D)=v，则表示该系统为最终一致性，T值的最小值约小，则表示一致性越好，该最小T值记为MTTC(Min time to Consistency)，数学语言描述为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MTTC = \min\&#123; T | T \ge 0, R(D)_&#123;t &gt; T&#125; =v \&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>&emsp;&emsp;分区容错性是指系统在遇到某节点或网络分区故障的时候，仍然能够对外提供外界无法感知故障的正确“访问”的能力。这里的正确“访问”是指能够对数据正确访问，而不是正常“访问”，如果系统返回之前的旧数据也叫做正常访问，只能说明可用，不能代表分区容错。假设系统的假设该系统的数据副本数量为N，系统的分区为M，当m个分区故障之后，系统仍然能够提供正确“访问”的能力，m值越大，则说明系统分区容错性越好，定义为分区容错率（Partition Tolerance Rate）为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PTR = \frac&#123;\max\&#123; m \&#125;&#125;&#123;N&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;这里将数据副本与分区数量进行了区分，是考虑到实际确实存在某些架构分区的概念可能比较大，或者说这个分区存在某种程度上的层次，后续文章中会进行相关案例介绍，当然，大部分架构在设计时将分区数量默认与副本数量相同，在满足大多数业务需求的同时降低了系统的复杂度。</p>
+<h2 id="3-互联网架构的分析"><a href="#3-互联网架构的分析" class="headerlink" title="3 互联网架构的分析"></a>3 互联网架构的分析</h2><p>&emsp;&emsp;互联网架构作为本专栏的主要研究对象，也可以按照架构分析的视角对互联网架构进行分析，主要是通过不同层级的视角对互联网架构的林林总总进行分类梳理，力求抽象并找出共性。</p>
+<h3 id="3-1-域架构"><a href="#3-1-域架构" class="headerlink" title="3.1 域架构"></a>3.1 域架构</h3><p>&emsp;&emsp;域架构是指目前研究以及应用都比较多，实实在在用于支撑用户正常“访问”的架构，不同的层级从具体到抽象又可分为业务问题域架构、公共问题域架构、基础问题域架构。</p>
 <ul>
 <li><strong>业务问题域架构</strong>：是指可以实际应用于具体业务领域问题的架构，比如电商秒杀、金融支付、海量商品详情、订单交易、千人千面、视频直播等具体业务场景所对应的架构，在某种程度上可以与业务开发架构师设计的架构相对应，同时更加倾向于业务中台的相关架构。</li>
 <li><strong>公共问题域架构</strong>：是指用于支撑上述具体业务问题域架构的较为公共问题的架构，比如搜索、推荐、IM、分布式事务、隔离、限流等等，在某种程度上可以与公共组件或者中间件架构相对应。</li>
 <li><strong>基础问题域架构</strong>：是指用于实现公共问题域架构的基础架构，比如分布式锁、缓存、队列、池化复用、同步异步、负载均衡等，通过这些基础架构的组合、连接等实现公共问题域架构。</li>
 </ul>
-<h3 id="2-2-架构元及数学解释"><a href="#2-2-架构元及数学解释" class="headerlink" title="2.2 架构元及数学解释"></a>2.2 架构元及数学解释</h3><p>&emsp;&emsp;架构元在理解上可以与数据元对应，是组成架构的最小单元或者原子单元，是对基础问题域架构进行进一步抽象而形成，同时也可以作为互联网架构与数学理论解释的桥梁。在本专栏的后续文章中会随着域架构分析的深入逐步介绍架构元的类型以及种类。</p>
-<h2 id="3-总结"><a href="#3-总结" class="headerlink" title="3 总结"></a>3 总结</h2><p>&emsp;&emsp;本文对互联网架构给出了定义以及衡量指标的数学描述，并对互联网架构进行了抽象分析，主要是总结个人对互联网的理解，其中难免会有一些偏差，写的不好或者错误的地方还希望大家多多指点。</p>
+<h3 id="3-2-架构元及数学解释"><a href="#3-2-架构元及数学解释" class="headerlink" title="3.2 架构元及数学解释"></a>3.2 架构元及数学解释</h3><p>&emsp;&emsp;架构元在理解上可以与数据元对应，是组成架构的最小单元或者原子单元，是对基础问题域架构进行进一步抽象而形成，同时也可以作为互联网架构与数学理论解释的桥梁。在本专栏的后续文章中会随着域架构分析的深入逐步介绍架构元的类型以及种类。</p>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4 总结"></a>4 总结</h2><p>&emsp;&emsp;本文对互联网架构给出了定义以及衡量指标的数学描述，并对互联网架构进行了抽象分析，主要是总结个人对互联网的理解，其中难免会有一些偏差，写的不好或者错误的地方还希望大家多多指点。</p>
 <blockquote>
-<p>本专栏下一篇文章会对互联网常用架构中业务问题域架构进行梳理，并整理出一些常用具有代表性的业务问题架构，尽请期待，</p>
+<p>本专栏下一篇文章会对互联网常用架构中业务问题域架构进行梳理，并整理出一些常用具有代表性的业务问题架构，尽请期待。</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/02/internet-architecture-math-hash/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hooke">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/02/internet-architecture-math-hash/" itemprop="url">
+                  互联网架构的数学解释——互联网架构定义及特性
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-09-02 14:24:56" itemprop="dateCreated datePublished" datetime="2018-09-02T14:24:56+08:00">2018-09-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-10-26 17:54:40" itemprop="dateModified" datetime="2018-10-26T17:54:40+08:00">2018-10-26</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/internet-architecture-math/" itemprop="url" rel="index"><span itemprop="name">internet-architecture-math</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>&emsp;&emsp;本专栏前面介绍了互联网架构的定义以及各层级的域架构，本篇以哈希开始从架构元这一层开始详细介绍互联网架构于数学的对应关系。</p>
+<h2 id="哈希相关基础知识"><a href="#哈希相关基础知识" class="headerlink" title="哈希相关基础知识"></a>哈希相关基础知识</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>&emsp;&emsp;哈希是Hash的英译，用于表示一种映射关系，可以将源空间中的样本（键值）较容易映射为目标空间中的唯一确定的样本（哈希值）。</p>
+<h3 id="哈希函数"><a href="#哈希函数" class="headerlink" title="哈希函数"></a>哈希函数</h3><p>&emsp;&emsp;用于表示上述定义中的这种映射关系的就是哈希函数，针对不同的应用场景会设计不同的哈希函数，通常考虑的因素或者衡量指标包括：</p>
+<ul>
+<li>计算哈希值所需时间</li>
+<li>哈希值求逆以及求碰撞难易程度</li>
+<li>哈希值在目标空间的分布情况（均衡性）</li>
+<li>源空间样本到目标空间样本信息损失情况（损失性）</li>
+<li>某个参数发生变化时，哈希值发生变化样本的占比情况（单调性）</li>
+</ul>
+<blockquote>
+<p><strong>基本还是可以通过时间+空间的方式进行思考，前面两条表示正向以及逆向的时间问题，第三条表示空间分布，第四条表示空间的变化</strong></p>
+</blockquote>
+<p>&emsp;&emsp;在具体应用场景，设计哈希函数时，有如下几种进行设计的方法：</p>
+<ul>
+<li>直接定址法：取关键字或关键字的某个线性函数值为散列地址。即H(key)=key或H(key) = a·key + b，其中a和b为常数（这种散列函数叫做自身函数）。若其中H(key）中已经有值了，就往下一个找，直到H(key）中没有值了，就放进去。</li>
+<li>数字分析法：假设关键字是以r为基的数，并且哈希表中可能出现的关键字都是事先知道的，则可取关键字的若干数位组成哈希地址。</li>
+<li>除留余数法：取关键字被某个不大于散列表表长m的数p除后所得的余数为散列地址。即 H(key) = key MOD p,p&lt;=m。不仅可以对关键字直接取模，也可在折叠、平方取中等运算之后取模。对p的选择很重要，一般取素数或m，若p选的不好，容易产生同义词。</li>
+<li>平方取中法：当无法确定关键字中哪几位分布较均匀时，可以先求出关键字的平方值，然后按需要取平方值的中间几位作为哈希地址。</li>
+<li>乘法取整法：f(x):=trunc((x/maxX)*maxlongit) mod maxM，主要用于实数。</li>
+<li>折叠法：将关键字分割成位数相同的几部分（最后一部分的位数可以不同），然后取这几部分的叠加和（舍去进位）作为哈希地址。</li>
+<li>随机法：选择一随机函数，取关键字的随机值作为散列地址，通常用于关键字长度不同的场合。</li>
+<li>斐波那契（Fibonacci）散列法：</li>
+<li>MD5：MD5即Message-Digest Algorithm 5（信息-摘要算法5），用于确保信息传输完整一致。是计算机广泛使用的杂凑算法之一，主流编程语言普遍已有MD5实现。将数据（如汉字）运算为另一固定长度值，是杂凑算法的基础原理，MD5的前身有MD2、MD3和MD4。<br>MD5是输入不定长度信息，输出固定长度128-bits的算法。经过程序流程，生成四个32位数据，最后联合起来成为一个128-bits散列。基本方式为，求余、取余、调整长度、与链接变量进行循环运算。得出结果。</li>
+<li>SHA-1：</li>
+</ul>
+<h3 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h3><p>&emsp;&emsp;哈希表是用指上述哈希映射关系的一种数据结构抽象，可以通过源空间中的值（键值）按照目标空间中的值（哈希值）对需要存储的内容进行直接存取。由于涉及到了寻址以及存储等，在具体使用中可能会出现不同的键值在经过哈希函数映射运算之后的哈希值相同，这样就导致了冲突，对于哈希冲突有如下几种处理思路：</p>
+<ul>
+<li>开放寻址法：Hi=(H(key) + di) MOD m,i=1,2,…，k(k&lt;=m-1)，其中H(key)为散列函数，m为散列表长，di为增量序列，di也可以采用不同的序列形式，包括线性序列、二次序列、伪随机序列等</li>
+<li>再散列法：Hi=RHi(key),i=1,2,…，k RHi均是不同的散列函数，即在同义词产生地址冲突时计算另一个散列函数地址，直到冲突不再发生，这种方法不易产生“聚集”，但增加了计算时间。</li>
+<li>链地址法：这种方法的基本思想是将所有哈希地址为i的元素构成一个称为同义词链的单链表，并将单链表的头指针存在哈希表的第i个单元中，因而查找、插入和删除主要在同义词链中进行。链地址法适用于经常进行插入和删除的情况。</li>
+<li>建立公共溢出区：将哈希表分为基本表和溢出表两部分，凡是和基本表发生冲突的元素，一律填入溢出表。</li>
+</ul>
+<blockquote>
+<p><strong>这些处理思路无外乎都是将计算出来的哈希值通过各种办法在目标空间中选取一个与冲突值不同的值</strong></p>
+</blockquote>
+<p>&emsp;&emsp;哈希表在实际的使用中很大一部分是用于加快查找速度，查找效率也就是衡量哈希表在对应场景设计好坏的一个重要指标，一些关键码可通过散列函数转换的地址直接找到，另一些关键码在散列函数得到的地址上产生了冲突，需要按处理冲突的方法进行查找。在介绍的三种处理冲突的方法中，产生冲突后的查找仍然是给定值与关键码进行比较的过程。所以，对散列表查找效率的量度，依然用平均查找长度来衡量。查找过程中，关键码的比较次数，取决于产生冲突的多少，产生的冲突少，查找效率就高，产生的冲突多，查找效率就低。因此，影响产生冲突多少的因素，也就是影响查找效率的因素。影响产生冲突多少有以下三个因素：</p>
+<ul>
+<li>散列函数是否均匀</li>
+<li>处理冲突的方法</li>
+<li>散列表的载荷因子（load factor）：填入表中的元素个数 / 散列表的长度。</li>
+</ul>
+<h2 id="与上层各问题域联系"><a href="#与上层各问题域联系" class="headerlink" title="与上层各问题域联系"></a>与上层各问题域联系</h2><h3 id="在“索引”中的应用"><a href="#在“索引”中的应用" class="headerlink" title="在“索引”中的应用"></a>在“索引”中的应用</h3><p>&emsp;&emsp;哈希可以作为索引的一种方法，将某个字段内容的哈希值与具体保存的行数通过哈希函数映射关系对应起来，这样能够很快的查询到对应的内容。采用哈希作为索引在查询上速度较快，但是也存在一些局限。</p>
+<ul>
+<li>hash索引中只有hash值和行数的指针，因此无法直接使用索引来避免读取行，但是因为这种索引读取快，性能影响不明显。</li>
+<li>hash索引不是按照索引值顺序存储，无法使用于排序。</li>
+<li>不支持部分列匹配查找，这里面是使用索引列的全部内容来计算哈希值，例如(A,B)两列一起建索引，单纯使用A一列，那么就无法使用索引，B-Tree索引的话，因为支持匹配最左前缀，所以这种情况适用性偏好。</li>
+<li>哈希索引只支持等值查询，包括=、in()、&lt;=&gt;，不支持where age &gt; 10 这种范围查询。</li>
+<li>哈希冲突很多的话，维护索引操作的代价也很高</li>
+</ul>
+<h3 id="在“压缩”中的应用"><a href="#在“压缩”中的应用" class="headerlink" title="在“压缩”中的应用"></a>在“压缩”中的应用</h3><h3 id="在“加密”中的应用"><a href="#在“加密”中的应用" class="headerlink" title="在“加密”中的应用"></a>在“加密”中的应用</h3><h3 id="在“负载均衡”中的应用"><a href="#在“负载均衡”中的应用" class="headerlink" title="在“负载均衡”中的应用"></a>在“负载均衡”中的应用</h3><p>&emsp;&emsp;在通用问题域“负载均衡”这个点中，主要是尽量均匀的将键值映射到各节点对应的哈希值，从而达到均匀分摊负载压力的目的。对于这种分配策略在不同的实际应用场景会有不同的设计，本专栏也会专门有文章介绍，不是本篇文章的重点，与本篇文章存在一定联系，也是非常常用的一种负载均衡分配策略就是采用除留余数法（取模）的哈希算法作为一种分配算法，但是该分配策略在单调性上存在较大的不足。</p>
+<p>&emsp;&emsp;假设源空间样本数量为N并均匀分布，目标空间样本数量为m，采用普通取模的hash算法如果目标空间样本数发生变化，比如减少为m-1，在N&gt;&gt;m的情况下，每m*(m-1)范围内除了最前面的m-1个值不发生变化之外，剩余的值均会发生变化，也就是说有1-1/m个值发生变化，当m从10减少到9时，哈希值发生变化的源空间样本占比为90%，在互联网并发高的应用中会出现大量未命中或者状态丢失的情况，影响系统的稳定性。</p>
+<p>&emsp;&emsp;为了解决诸如此类问题，引入了一致性哈希算法：</p>
+<h4 id="一致性哈希"><a href="#一致性哈希" class="headerlink" title="一致性哈希"></a>一致性哈希</h4><p>&emsp;&emsp;一致哈希是一种特殊的哈希算法。在使用一致哈希算法后，哈希值的改变平均只需要对N/n个源空间样本重新进行映射，具备较好的单调性。</p>
+<ul>
+<li>&emsp;&emsp;环形hash 空间：考虑通常的 hash 算法都是将 value 映射到一个 32 位的数值，也就是 0~2^32-1次方的目标空间，我们可以将这个空间想象成一个首（ 0 ）尾（ 2^32-1 ）相接的圆环，如下面图所示的那样。</li>
+</ul>
+<ul>
+<li>把对象映射到目标空间：接下来考虑4个对象object1~object4 ，通过某种hash 函数计算出的哈希值值在环上的分布如图所示。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hash(o1) = m1 </span><br><span class="line">hash(o2) = m2 </span><br><span class="line">hash(o3) = m3 </span><br><span class="line">hash(o4) = m4</span><br></pre></td></tr></table></figure>
+<ul>
+<li>把节点映射到hash 空间<br>使用同样的hash函数，我们将机器也放置到hash环上。假设我们有三台缓存机器，分别为 c1，c2，c3，使用hash函数计算这3台机器的hash值：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hash(c1) = t1 </span><br><span class="line">hash(c2) = t2 </span><br><span class="line">hash(c3) = t3</span><br></pre></td></tr></table></figure>
+<p>把t1，t2，t3 这3个值放置到hash环上，如图所示。</p>
+<p>为对象选择机器<br>将对象和机器都放置到同一个hash环后，在hash环上顺时针查找距离这个对象的hash值最近的机器，即是这个对象所属的机器。<br>例如，对于对象o2，顺序针找到最近的机器是c1，故机器c1会缓存对象o2。而机器c2则缓存o3，o4，机器c3则缓存对象o1。</p>
+<p>通过上述的一致性哈希算法，我们仍然假设源空间样本数量为N并均匀分布，目标空间样本数量为m，当目标空间样本由m变为m-1，以及m+1哈希值发生变化的情况：</p>
+<p>在某些情况下将节点映射到目标空间时，在节点过少时可能会出现映射不均匀的情况，这样会导致节点之间数据不均匀，系统整体利用效率过低，为了解决该问题可以通过引入虚拟节点或者线性映射的办法改善节点的哈希值在目标空间不均匀的情况：</p>
+<p>虚拟节点是指将原来具体的节点对应出多个虚拟的节点，使得整体节点数目变多，减少映射到目标空间不均匀的程度，当然，虚拟节点的增加并不能够完全解决不均匀的问题，但是可以较好的降低不均匀性，定量计算分析如下</p>
+<p>线性映射是指将原有不均匀的环形目标空间对应的节点哈希值映射到均匀的线性空间中，比如通过将节点哈希值对应的顺序再次按照这个线性空间的分区数量进行取模哈希运算。</p>
+<h3 id="在“拆分合并”中的应用"><a href="#在“拆分合并”中的应用" class="headerlink" title="在“拆分合并”中的应用"></a>在“拆分合并”中的应用</h3><p>&emsp;&emsp;通用问题域“拆分合并”包括但是不限于对数据库进行的分表分库，以数据库的分表分库为例，很多情况下会采用源空间为用户id或者业务唯一id，目标空间为数据库编号，哈希函数为取模的方案对数据库的crud请求进行路由，将原来但以数据库的处理压力分担到分开之后的多个数据库。</p>
+<h3 id="在“搜索”中的应用"><a href="#在“搜索”中的应用" class="headerlink" title="在“搜索”中的应用"></a>在“搜索”中的应用</h3><p>&emsp;&emsp;在通用问题域“搜索”这个点中，很多业务场景存在文本搜索的需求，特别是在召回阶段需要对文本的相似度进行计算，为了提高计算效率，会采取对文本计算摘要的方式比较，传统大多数hash算法在源空间键值即时是发生较小的变化，计算出来的哈希值差别也会差别的非常多，不满足在源空间键值相似的情况下目标空间哈希值也尽量相似的要求。相似哈希（simhash）具备上述特性，因此在文本搜索中广泛用于相似度计算。</p>
+<h4 id="相似哈希"><a href="#相似哈希" class="headerlink" title="相似哈希"></a>相似哈希</h4><p>&emsp;&emsp;对两个网页进行相似哈希判断，假定网页中有若干词：t1,t2,…,tk，他们的权重（比如TF-IDF值）分布为：w1,w2,…,wk。先计算出这些词的信息指纹，为便于说明，假定只用8位二进制的信息指纹f1和f2（实际中肯定比这个长，否则重复度太高）。</p>
+<p>&emsp;&emsp;我们先来计算下网页的信息指纹，以第一个网页f1为例，计算步骤如下：</p>
+<ul>
+<li>初始化:将8位二进制的指纹f1扩展成8个实数，用r1,r2,…,r8表示，初值均为0；</li>
+<li>扩展:看t1的指纹（8位），如果t1的第i位为1，则在ri上加上w1；若为0，则在ri上减去w1。使用同样方法，遍历t1~tk（相当于将所有词在第i位的权重相加减得到ri），得到最终r1~rk的值；</li>
+<li>收缩:根据r1~rk的值，若大于零，则f1的对应位为1，否则为0。</li>
+</ul>
+<p>&emsp;&emsp;同样的方法，我们还可以得到其他网页的信息指纹。</p>
+<p>&emsp;&emsp;根据两个网页的相似哈希值，我们可以求出二者之间的相似哈希距离（使用汉明距离或欧几里得距离等），从而判断网页是否相似。</p>
+<p>&emsp;&emsp;相似哈希的特点是：如果两个网页的相似哈希相差越小，这两个网页的相似性越高。如果两个网页相同，他们的相似哈希肯定相同。如果他们只有少数权重小的词不同，其余的都相同，那么他们的相似哈希也几乎相同。</p>
+<h2 id="与数学的对应关系"><a href="#与数学的对应关系" class="headerlink" title="与数学的对应关系"></a>与数学的对应关系</h2><h3 id="集合论"><a href="#集合论" class="headerlink" title="集合论"></a>集合论</h3><p>&emsp;&emsp;哈希从本质上来说就是一种<strong>映射关系</strong>，把源空间记为集合A，目标空间记为集合B，哈希就是集合A到集合B中一种<strong>映射关系</strong>，这种映射关系在集合论中可抽象概括为<strong>一般映射</strong>、<strong>单射</strong>、<strong>满射</strong>、<strong>双射</strong>，因此哈希函数的各种性质也可以结合集合论进行研究。</p>
+<h3 id="数论"><a href="#数论" class="headerlink" title="数论"></a>数论</h3><p>&emsp;&emsp;对于冲突解决的增量队列的选取根据实际情况选取不同的<strong>数列</strong>，<strong>数列</strong>可以包括等差线性数列、二次数列、斐波那契等等，具体数列性质可以结合数论深入研究，从而构造出不同的冲突解决方案。</p>
+<h3 id="信息论（应用数学之一）"><a href="#信息论（应用数学之一）" class="headerlink" title="信息论（应用数学之一）"></a>信息论（应用数学之一）</h3><p>&emsp;&emsp;在信息论中，两个等长字符串之间的汉明距离是两个字符串对应位置的不同字符的个数，换句话说，它就是将一个字符串变换成另外一个字符串所需要替换的字符个数，可以在通信中累计定长二进制字中发生翻转的错误数据位，所以它也被称为信号距离。</p>
+<p>&emsp;&emsp;另外二进制字符串的汉明距离也等于n维超正方体两个顶点之间的曼哈顿距离，其中n是两个字串的长度。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>&emsp;&emsp;既然专栏叫做互联网架构的数学解释，就以整体架构中各层依赖图以及公式进行总结，以哈希为中心的互联网架构依赖图如下：</p>
+<p>&emsp;&emsp;重要概念或知识点的数学公式：</p>
+<blockquote>
+<p>哈希：\(value = hash(key)\)或缩写为\(v = h(k)\)</p>
+</blockquote>
+<blockquote>
+<p>直接定址法：\(v = a*k + b\)</p>
+</blockquote>
+<blockquote>
+<p>除留取余法：\(v = k \ mod \ p(p \le m)\)</p>
+</blockquote>
+<blockquote>
+<p>开放寻址法：\(v = h(k) + d_i,di \in D \)</p>
+</blockquote>
+<blockquote>
+<p>再散列法: \(v = h_i(k),i = 1,\dotsc,m\)</p>
+</blockquote>
+<blockquote>
+<p>一致性哈希:<br>$$v_k = h_1(k)$$ </p>
+<p>$$v_{n_i} = h_2(n_i),i=1,\dotsc,m$$</p>
+<p>$$v = v_{n_i},i =  {\arg\min_{i} v_{n_i} - v_k} $$</p>
+</blockquote>
+<blockquote>
+<p>相似哈希: </p>
 </blockquote>
 
           
@@ -509,12 +1937,24 @@
                 
               
 
-              <time title="Created: 2018-09-01 13:24:00 / Modified: 13:27:48" itemprop="dateCreated datePublished" datetime="2018-09-01T13:24:00+08:00">2018-09-01</time>
+              <time title="Created: 2018-09-01 13:24:00" itemprop="dateCreated datePublished" datetime="2018-09-01T13:24:00+08:00">2018-09-01</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-09-14 17:19:50" itemprop="dateModified" datetime="2018-09-14T17:19:50+08:00">2018-09-14</time>
               
             
           </span>
@@ -570,6 +2010,7 @@
             <p>&emsp;&emsp;从事互联网开发有些年头了，见过了各式各样的所谓的互联网架构，从早期的SOA模型到目前大火的微服务模型，以及正处于上升期的Lambda、Service Mesh等等。无论哪个阶段的架构模型，介绍的文章、落地的案例、架构术语都不胜枚举，理解记忆起来也可能过于繁琐和复杂，让广大从业者以及研究者都容易陷入到茫茫的架构方案中无法认清本质。虽然各个阶段架构有所不同，但是每个阶段的各种系统的架构模式均可以抽象提炼成一个个<strong>架构元</strong>（与数据元对应理解），通过架构的组合、连接等可以构成系统的整体架构方案。</p>
 <p>&emsp;&emsp;数学这个古老又充满了活力的学科，可以说是一切科学技术的基础，因此属于计算机技术的所谓互联网技术同样也少不了数学的身影。数学这门学科非严谨的可分为<strong>代数、几何以及分析</strong>三大范畴（实际上数学学科错综复杂，很多各部分融合交叉）。代数以线性代数、抽象代数为基础，研究各种代数结构，比如最常见的群环模域线性空间等；几何主要关注几何对象与拓扑对象，以点线边图等为基础研究对象的空间关系以及结构；分析是以广义的微积分、微分方程理论、泛函分析等为研究工具，对函数、方程等“可以求导”的东西进行精细的分析（比如不等式估计、最优化等等）。</p>
 <p>&emsp;&emsp;本专栏的目的是为了透过时间的变迁，深入架构元模式，结合数学理论对架构元进行数学解释，甚至是进行模型的统一，以达到认清互联网架构的最核心本质。</p>
+<p> ![Alt text][<a href="http://oqay0v62b.bkt.clouddn.com/image/internet-arch-math/%E4%BA%92%E8%81%94%E7%BD%91%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%95%B0%E5%AD%A6%E4%BD%93%E7%B3%BB.jpg]" target="_blank" rel="noopener">http://oqay0v62b.bkt.clouddn.com/image/internet-arch-math/%E4%BA%92%E8%81%94%E7%BD%91%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%95%B0%E5%AD%A6%E4%BD%93%E7%B3%BB.jpg]</a></p>
 <p>&emsp;&emsp;本专栏的组织结构：</p>
 <ul>
 <li>第一部分：整体介绍目前主流互联网架构与数学的联系</li>
@@ -658,7 +2099,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -673,7 +2114,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -690,7 +2135,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -889,6 +2346,18 @@
     
       
         
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
       
     
       
