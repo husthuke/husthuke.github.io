@@ -277,6 +277,709 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/30/kg-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hooke">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/30/kg-2/" itemprop="url">
+                  kg-2
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-30 21:15:48" itemprop="dateCreated datePublished" datetime="2019-07-30T21:15:48+08:00">2019-07-30</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-03 18:28:14" itemprop="dateModified" datetime="2019-08-03T18:28:14+08:00">2019-08-03</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>知识图谱综述是对知识图谱近年来发展过程以及使用的最新技术进行整理概括的论文，可以说是知识图谱比较系统高效的入门学习资料，本文选择了几篇引用较多、影响力较大的综述进行总结。</p>
+<h2 id="知识图谱知识点架构图"><a href="#知识图谱知识点架构图" class="headerlink" title="知识图谱知识点架构图"></a>知识图谱知识点架构图</h2><p>本架构图是笔者在进行知识图谱相关工作一段时间之后，结合自己对知识图谱的理解以及部分综述文章整理出一套较为通用的知识图谱开发流程，然后基于该开发流程各阶段所需要的技术或者知识点绘制而成，可以在整体宏观层面对整个知识图谱相关知识点有一个全面的认识，本文对于多篇知识图谱综述文献中设计的技术点也会基于该架构图进行对比分析，同时本专栏系列文章也会紧密的结合该架构图进行展开说明。</p>
+<h2 id="知识图谱研究综述"><a href="#知识图谱研究综述" class="headerlink" title="知识图谱研究综述"></a>知识图谱研究综述</h2><p>本篇综述作者是清华大学的<a href="">李娟子</a>教授及其学生侯磊，本篇主要是对知识图谱的关键技术——知识表示、知识图谱构建和知识图谱应用进行了综述，并对知识图谱未来发展的挑战和趋势进行了总结展望。</p>
+<h3 id="知识表示"><a href="#知识表示" class="headerlink" title="知识表示"></a>知识表示</h3><p>本篇综述对于知识表示主要是从发展的角度进行介绍，包括如下三个阶段：</p>
+<ul>
+<li>比较早时期采用符号逻辑的方式</li>
+<li>2000年以后出现的语义网对知识进行表示的方式，包括RDF、OWL等</li>
+<li>目前比较流行的采用表示学习方式，将知识学习成低维稠密的向量，通过向量间的关系可以在某种程度上反映知识之间的关系</li>
+</ul>
+<h3 id="知识图谱构建"><a href="#知识图谱构建" class="headerlink" title="知识图谱构建"></a>知识图谱构建</h3><p>知识图谱构建技术可以包括知识建模以及知识获取的部分技术，本篇主要介绍如下三个技术点：</p>
+<ul>
+<li>概念层次学习：与通常所说的本体比较类似，主要是反映事物之间上层抽象关系，上下位关系等。</li>
+<li>实事学习：主要就是抽取三元组知识的技术，整体上可以采用的方式与机器学习大分类类似，包括监督方式、半监督方式、无监督方式——监督方式采用规则、分类标注、序列标注等方式训练模型之后，再采用该模型进行知识抽取，主要会应用在领域知识的抽取；半监督方式主要包括自扩展方法和弱监督方法。自扩展方法需要初始的种子实体对，根据这些种子实体对，发现新的语义模板，再对语料进行迭代抽取以发现新的实体对;无监督的知识获取方法主要是开放信息抽取，使用自然语言处理方法，无须预先给定要抽取的关系类别，自动将自然语言句子转换为命题。</li>
+<li>语义集成：在其他文献中也可以有叫知识融合，发现不同知识库之间的等价关系，主要包括如下几种方法——基于文本相似度；基于图结构信息，比如simrank或者相似度传播等；基于已知开放知识库作为背景提高匹配效果；基于机器学习的方法将本体匹配问题视为机器学习中的分类或优化问题，从而采取机器学习方法获 得匹配结果。</li>
+</ul>
+<h3 id="知识图谱应用"><a href="#知识图谱应用" class="headerlink" title="知识图谱应用"></a>知识图谱应用</h3><p>本篇综述在知识应用方面介绍了如下三个方向：</p>
+<ul>
+<li>语义搜索：利用知识图谱所具有的良好定义的结构形式，以有向图的方式提供满足用户需求的结构化语义内容。</li>
+<li>知识问答：基于知识库的问答，通过对问句的语义分析，转换成结构化的查询语句，在已有结构化的知识库上获取答案。</li>
+<li>知识驱动的大数据分析与决策：</li>
+</ul>
+<h2 id="知识图谱研究进展"><a href="#知识图谱研究进展" class="headerlink" title="知识图谱研究进展"></a>知识图谱研究进展</h2><p>本篇综述作者是东南大学<a href="https://cse.seu.edu.cn/2019/0103/c23024a257135/page.htm" target="_blank" rel="noopener">漆桂林</a>教授及其博士研究生，主要是从知识图谱构建技术和知识图谱相关应用方面进行介绍。在整体上分为三大部分，第一部分为知识图谱技术地图简要说明，主要也是从流程方面抽象介绍；第二部分为其中关键技术点的介绍，第二部分可以说属于第一部分的深入；第三部分介绍了当前比较著名的开放知识图谱以及知识图谱相关应用。</p>
+<h3 id="知识图谱技术地图（第一部分）"><a href="#知识图谱技术地图（第一部分）" class="headerlink" title="知识图谱技术地图（第一部分）"></a>知识图谱技术地图（第一部分）</h3><ul>
+<li>知识获取：分析介绍需要解决的问题与上一篇综述中概念层次学习和实事学习相似，也是包括从结构化、半结构化、非结构化数据中获取知识数据。</li>
+<li>知识融合：将已有的知识库的数据与从各数据源爬取的数据融合成一个统一大的知识库，提供统一的结构和数据，与上一篇综述中语义集成类似。</li>
+<li>知识计算及应用：通过图谱中本体、实体并结合规则推理隐含的知识或者进行链接预测等，给领域人员提供辅助决策意见。</li>
+</ul>
+<h3 id="关键技术点（第二部分）"><a href="#关键技术点（第二部分）" class="headerlink" title="关键技术点（第二部分）"></a>关键技术点（第二部分）</h3><h4 id="实体关系识别技术"><a href="#实体关系识别技术" class="headerlink" title="实体关系识别技术"></a>实体关系识别技术</h4><ul>
+<li>监督学习：将命名实体识别任务转换为分类任务，发展过程中也经历了统计方式、SVM、最小公共子树、核函数、神经网络等阶段，抽取的准确率也逐渐提高，同时对于实体抽取和关系抽取也逐渐出现了两者联合抽取的方法。</li>
+<li>半监督学习：与上一篇文献中实事学习中介绍的类似，主要是基于Bootstrap方法进行，初始选取少量的实例作为种子集合，通过定义的模式进行抽取，通过多次迭代，实现从非结构化数据中抽取知识的目的。</li>
+<li>无监督学习：主要是基于聚类的方法。</li>
+</ul>
+<h4 id="知识融合技术"><a href="#知识融合技术" class="headerlink" title="知识融合技术"></a>知识融合技术</h4><p>知识融合相较于数据融合需要解决不同知识抽取工具抽取的不同格式数据的融合对齐，多篇相应文献基于概率的角度来尝试解决相关问题，同样，知识融合中一个十分重要的核心问题就是本体匹配，在依据匹配对象上可分为模式匹配和实例匹配，在技术层面可分为启发式方法、基于图的方法、概率方法、基于学习的方法和基于推理的方法。</p>
+<ul>
+<li>模式匹配:模式匹配主要寻找本体中类似的属性和概念，主要具体方法包括基于类似WordNet词典或者本体信息结构、基于锚点逐步迭代、基于贝叶斯决策的风险最小化。</li>
+<li>实例匹配:实例匹配是评估异构知识源之间实例对的相似度，用来判断这些实体是否指向给定领域的相同实体，主要具体方法包括利用局部敏感性哈希或者向量空间模型来度量实体间的距离，从而计算实体之间的相似度。</li>
+</ul>
+<h4 id="实体链接技术"><a href="#实体链接技术" class="headerlink" title="实体链接技术"></a>实体链接技术</h4><p>实体链接是指将文本中的实体指称链向知识库实体的过程，它能够丰富文本语义信息，在广义上也可以归纳为知识融合的一部分，也是大规模知识图谱构建十分重要的一个技术，本综述介绍的相关方法如下：</p>
+<ul>
+<li>基于概率生成模型的方法：主要是结合上下文，计算候选实体出现在场景中的概率来确定实体指称需要指向的候选实体。</li>
+<li>基于主题模型的方法：</li>
+<li>基于图的方法：将实体指称与候选实体基于文本相识度（词袋模型、word2vec均可）作为权重边构建成图，再采用各种方法（PageRank、置信度传播）更新节点之间的边的权重，在某种程度上利用了已有知识图谱中候选实体以及待链接文本的全局信息。</li>
+<li>基于深度学习的方法：</li>
+</ul>
+<h4 id="知识推理技术"><a href="#知识推理技术" class="headerlink" title="知识推理技术"></a>知识推理技术</h4><p>知识推理技术可以说是知识图谱的灵魂，也是难度较大的技术点，本综述主要介绍了基于符号的推理以及基于统计的推理。</p>
+<ul>
+<li>基于符号的推理方法：基于符号的推理方法研究起源较早，主要理论依据是谓词逻辑相关数学工具，需要将知识图谱中的连接关系转为为符号表示，然后在采用谓词逻辑的方式进行推理，存在计算量较大的弊端，本综述介绍了在多机环境下进行并行计算的相关方法，同时也分析了目前已有相关系统的发展现状。</li>
+<li>基于统计的推理方法：本综述的中介绍的基于统计的推理方法一般指关系机器学习方法，主要包括实体关系学习方法、类型推理方法以及模式归纳方法。</li>
+</ul>
+<h3 id="知识图谱应用-1"><a href="#知识图谱应用-1" class="headerlink" title="知识图谱应用"></a>知识图谱应用</h3><p>本综述主要介绍知识图谱在如下几个方面的应用：</p>
+<ul>
+<li>股票投研情报分析：通过知识图谱相关技术从招股书、年报、公司公告、券商研究报告等半结构化表格或者非结构化文本数据抽取企业、股东、子公司、投资人、合作伙伴、竞争对手等信息构建公司知识图谱，通过对公司知识图谱进行知识挖掘以及知识推理，提供投资的辅助决策或者组合投资的风险控制。</li>
+</ul>
+<ul>
+<li>公安情报分析：通过融合政务、企业、个人的出行、交易、通话等信息构建公安安全知识图谱、并结合案情笔录调查数据，辅助公安进行刑侦、经侦等。</li>
+<li>反欺诈情报分析：通过融合来自不同知识源的信息构成知识图谱，同时引入领域专家构建业务规则，结合图谱和规则进行欺诈行为的识别。</li>
+</ul>
+<h2 id="相关资源现在地址"><a href="#相关资源现在地址" class="headerlink" title="相关资源现在地址"></a>相关资源现在地址</h2><p>打个广告，本专栏中介绍总结的各种学习资源均会在该github中同步更新。</p>
+<p><a href="https://github.com/husthuke" target="_blank" rel="noopener">https://github.com/husthuke</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/22/kg-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hooke">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/22/kg-1/" itemprop="url">
+                  kg-1
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-22 11:37:23 / Modified: 14:16:57" itemprop="dateCreated datePublished" datetime="2019-07-22T11:37:23+08:00">2019-07-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="整体说明"><a href="#整体说明" class="headerlink" title="整体说明"></a>整体说明</h2><p>知识图谱（Knowledge Graph/Vault）又称为科学知识图谱，在图书情报界称为知识域可视化或知识领域映射地图，是显示知识发展进程与结构关系的一系列各种不同的图形，用可视化技术描述知识资源及其载体，挖掘、分析、构建、绘制和显示知识及它们之间的相互联系。 同时知识图谱作为人工智能重要的一环，目前在推荐系统、问答系统中也起到越来越重要的作用，如果将人工智能生态中的语音图像识别，语音图像合成等类比为人类的输入和输出，知识图谱可以说会逐渐承担类似人类逻辑推理的功能，推动通用人工智能，甚至强人工智能的发展。 本专栏主要包括知识图谱的学习资料整理、心得、教程相关内容，整体上分为如下几个方面。</p>
+<ul>
+<li>[理论及论文]:主要整理收集知识图谱理论发展综述以及不同时期关键重要或者具有代表性的论文，从整体宏观上了解知识图谱的发展脉络。</li>
+<li>[图谱及数据集]:收集整理知识图谱常用的数据集和构建好的图谱数据，并介绍不同数据集的特点及其适应场景。</li>
+<li>[工具及服务]:收集在知识图谱开发中在不同阶段的常用工具和第三方服务，包括但不限于知识抓取、命名实体识别、知识推理等方面工具，从而可以较快速的推进知识图谱的开发，本专栏也会针对其中普遍通用的工具使用撰写教程。</li>
+<li>[白皮书及报告]:知识图谱发展演变过程中，很多学术机构或者企业针对不同领域、行业给出了一些路线图或者白皮书，通过这些路线图或者白皮书能够看出知识图谱具体的发展以及应用方向，对开拓视野都有很好的帮助。</li>
+<li>[机构及人物]:介绍知识图谱领域举足轻重的结构和知名人物，可以跟随大牛的脚步在知识图谱的海洋中探索，并丰富自己的人脉，走向人生巅峰。</li>
+<li>[视频课程]:收集整理市面上质量较高的视频类教程，可以起到一个快速入门的作用，力求以最小的投入达到实用的产出。</li>
+<li>[专栏合集]:收集整理各类技术网站上关于知识图谱系统专栏合集，比如知识图谱与深度学习、知识图谱与推荐系统等等，能够使读者在某个具体的方向深入学习知识图谱相关技术。</li>
+<li>[评测竞赛]:整理业界质量较高的评测竞赛，选择合适自己当前阶段的评测竞赛可以较好的锻炼实战水平，同时也可以了解到知识图谱前沿的技术。</li>
+<li>[项目案例]:收集整理利用知识图谱成功落地的项目应用，通过理论结合实际更好的理解知识图谱。</li>
+<li>[推广技术文章]:收集整理各类门户网站、公众号号关于知识图谱技术推广的文章，包括美团大脑、阿里知识图谱等具体商用产品的介绍，从而达到抓住热点，站住风口的目的。</li>
+</ul>
+<p>本篇只是作为开篇对该专栏包含的内容进行整体介绍，后续文章会组件介绍相关资源的学习心得或者学习教程,大家尽请期待。</p>
+<h2 id="部分资源下载地址"><a href="#部分资源下载地址" class="headerlink" title="部分资源下载地址"></a>部分资源下载地址</h2><p><a href="https://github.com/husthuke" target="_blank" rel="noopener">https://github.com/husthuke</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/edu-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hooke">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/05/edu-2/" itemprop="url">
+                  edu-2
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-05 15:47:37 / Modified: 15:47:56" itemprop="dateCreated datePublished" datetime="2019-07-05T15:47:37+08:00">2019-07-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/教育人工智能/" itemprop="url" rel="index"><span itemprop="name">教育人工智能</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="专业术语"><a href="#专业术语" class="headerlink" title="专业术语"></a>专业术语</h2><h3 id="自适应学习"><a href="#自适应学习" class="headerlink" title="自适应学习"></a>自适应学习</h3><h3 id="ITS"><a href="#ITS" class="headerlink" title="ITS"></a>ITS</h3><h3 id="项目反映理论"><a href="#项目反映理论" class="headerlink" title="项目反映理论"></a>项目反映理论</h3><h3 id="知识追踪"><a href="#知识追踪" class="headerlink" title="知识追踪"></a>知识追踪</h3><h3 id="e-learning"><a href="#e-learning" class="headerlink" title="e-learning"></a>e-learning</h3>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/edu-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hooke">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/05/edu-1/" itemprop="url">
+                  教育人工智能相关会议介绍
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-05 11:17:44" itemprop="dateCreated datePublished" datetime="2019-07-05T11:17:44+08:00">2019-07-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-08 10:16:24" itemprop="dateModified" datetime="2019-07-08T10:16:24+08:00">2019-07-08</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/教育人工智能/" itemprop="url" rel="index"><span itemprop="name">教育人工智能</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>&emsp;&emsp;当AI与某个行业结合时，在学术界或者工业界一般会，本文主要针对教育行业人工智能术语以及学术会议做下总结，方便新进入到这一领域的学术界研究人员以及工业界从业者快速入门。</p>
+<h2 id="相关会议及期刊"><a href="#相关会议及期刊" class="headerlink" title="相关会议及期刊"></a>相关会议及期刊</h2><h3 id="AIED"><a href="#AIED" class="headerlink" title="AIED"></a>AIED</h3><p>&emsp;&emsp;AIED全称Artificial Intelligence in Education，属于International Artificial Intelligence in Education Society组织的国籍会议，IAIED是一个聚焦于计算机科学、教育以及心理学领域前沿的跨学科团体，主要促进提高不同领域、不同年龄学习者学习交互效率、自适应学习环境的改善。同时，IAIED组织发售International Journal of Artificial Intelligence in Education顶级学术期刊（<a href="https://link.springer.com/journal/volumesAndIssues/40593），同样致力于推广AI在教育领域的应用。" target="_blank" rel="noopener">https://link.springer.com/journal/volumesAndIssues/40593），同样致力于推广AI在教育领域的应用。</a></p>
+<p>&emsp;&emsp;AIED(<a href="https://iaied.org/conferences)从2011至今2019年共举办6次，2017年之前2年举办一场，2017年开始每年举办一场，最近一次AIED" target="_blank" rel="noopener">https://iaied.org/conferences)从2011至今2019年共举办6次，2017年之前2年举办一场，2017年开始每年举办一场，最近一次AIED</a> 2019(<a href="https://caed-lab.com/aied2019)于今年6月25日至29日在芝加哥举办，AIED目前轮值主席为CMU大学的Bruce" target="_blank" rel="noopener">https://caed-lab.com/aied2019)于今年6月25日至29日在芝加哥举办，AIED目前轮值主席为CMU大学的Bruce</a> M. McLaren(<a href="https://www.cs.cmu.edu/~bmclaren/index.html)教授。" target="_blank" rel="noopener">https://www.cs.cmu.edu/~bmclaren/index.html)教授。</a></p>
+<h3 id="ITS"><a href="#ITS" class="headerlink" title="ITS"></a>ITS</h3><p>&emsp;&emsp;ITS全称International Conference On Intelligent Tutoring Systems，顾名思义，ITS会议主要专注智能教学系统，属于比较专业的范畴，最近一次ITS 2019（<a href="https://its2019.iis-international.org/）于2019年6月3-7日在牙买加举行，主题为人工智能的挑战——扩大ITS的边界，从今年会议的主题就可以看出随着这几年人工智能的大热，ITS也不仅仅局限在智能教学系统，也在逐步扩大其影响，期望借助人工智能的浪潮做出大的发展。" target="_blank" rel="noopener">https://its2019.iis-international.org/）于2019年6月3-7日在牙买加举行，主题为人工智能的挑战——扩大ITS的边界，从今年会议的主题就可以看出随着这几年人工智能的大热，ITS也不仅仅局限在智能教学系统，也在逐步扩大其影响，期望借助人工智能的浪潮做出大的发展。</a></p>
+<p>&emsp;&emsp;ITS会议开始与1992年，属于教育人工智能相关会议比较早的，在2018年之前每两年举办一次，2018年开始每年举办一次（<a href="https://link.springer.com/conference/its）。" target="_blank" rel="noopener">https://link.springer.com/conference/its）。</a></p>
+<h3 id="L-S"><a href="#L-S" class="headerlink" title="L@S"></a>L@S</h3><p>&emsp;&emsp;L@S全称ACM’s Learning at Scale，是ACM旗下组织举办的会议之一，主要聚焦于学习者较多而专家较少的大规模、以技术为媒介的学习环境和机制，大规模的学习环境极其多种多样，包括：MOOC、ITS、open learning courseware、游戏化学习等等。</p>
+<p>&emsp;&emsp;L@S的目标是增强人类的学习能力和效果，出了出现越来越多的上述学习形式之外，研究者也经常采用一些指标来间接的衡量学习，包括participation（参与度）、persistence（坚持度）、completion（完成度）、satisfaction（满意度）以及activity（活跃度）。</p>
+<h3 id="EDM"><a href="#EDM" class="headerlink" title="EDM"></a>EDM</h3><p>&emsp;&emsp;EDM全称Educational Data Mining ，是一个新兴的以目前快速增长的教育环境中产生的数据为基础，通过数据挖掘的手段和方法更好的理解学生以及其学习的环境，无论教育数据来自学生使用交互式学习环境，计算机支持的协作学习系统，还是来自学校和大学的管理数据，它通常都有多层次的有意义的层次结构，通常需要由数据本身的属性决定，更进一步，数据产生的时间、顺序以及上下文在理解教育数据工程中也发挥着重要作用。</p>
+<p>&emsp;&emsp;EMD(<a href="http://educationaldatamining.org/)会议开始于2008年，每年举办一次，最近一次会议将于2019年7月2-5日在加拿大举办（http://educationaldatamining.org/edm2019/），同时EMD也组织出版期刊JEDM（https://jedm.educationaldatamining.org/index.php/JEDM/）" target="_blank" rel="noopener">http://educationaldatamining.org/)会议开始于2008年，每年举办一次，最近一次会议将于2019年7月2-5日在加拿大举办（http://educationaldatamining.org/edm2019/），同时EMD也组织出版期刊JEDM（https://jedm.educationaldatamining.org/index.php/JEDM/）</a></p>
+<h3 id="LAK"><a href="#LAK" class="headerlink" title="LAK"></a>LAK</h3><p>&emsp;&emsp;LAK全称International Conference on Learning Analytics &amp; Knowledge，面向与学习和分析系统领域相关专业人员的首要研究论坛，用于探讨学习和分析的最新以及最前沿技术。</p>
+<p>&emsp;&emsp;LAK会议（<a href="https://solaresearch.org/events/lak/）由ACM主办，开始于2011年，每年举办一次，最近一次会议LAK19（https://lak19.solaresearch.org/）于2019年3月4-8日在美国举办。" target="_blank" rel="noopener">https://solaresearch.org/events/lak/）由ACM主办，开始于2011年，每年举办一次，最近一次会议LAK19（https://lak19.solaresearch.org/）于2019年3月4-8日在美国举办。</a></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>&emsp;&emsp;AIED主要作为教育AI方面最为全面的会议，征集的论文方向也比较广泛，ITS以及LAK主要是从某一个与教育相关的系统或者技术为基础进行延伸，EDM以及L@S主要是专注于教育、学习过程中产生的数据，以及在大规模学习环境中如何提高学习效率，同时与教育理论结合较为密切些。由于上述组织或者会议均是与教育领域密切相关的技术会议，为了更好的结合领域以及服务于领域，不同的会议团体与教育领域方面的会议或组织联合组建了IAALDE,即International Alliance to Advance Learning in the Digital Era(<a href="http://www.alliancelss.com/),其中AIED、EDM、L@S均属于该组织。" target="_blank" rel="noopener">http://www.alliancelss.com/),其中AIED、EDM、L@S均属于该组织。</a></p>
+<p>&emsp;&emsp;在整体影响力或者知名度方面AIED&gt;ITS、EDM&gt;LAK、L@S</p>
+<h2 id="Workshop"><a href="#Workshop" class="headerlink" title="Workshop"></a>Workshop</h2>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/reading-notes-ycfxhxss/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -730,404 +1433,6 @@
 <li>整合以及优化求解。</li>
 </ul>
 <h2 id="知识点框架图"><a href="#知识点框架图" class="headerlink" title="知识点框架图"></a>知识点框架图</h2>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/11/ai-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hooke">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/11/ai-2/" itemprop="url">
-                  互联网后端开发转型(转行)AI之路——规划篇
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-10-11 13:36:57" itemprop="dateCreated datePublished" datetime="2018-10-11T13:36:57+08:00">2018-10-11</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-10-23 12:36:07" itemprop="dateModified" datetime="2018-10-23T12:36:07+08:00">2018-10-23</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI转型/" itemprop="url" rel="index"><span itemprop="name">AI转型</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>&emsp;&emsp;转型或者转行是一个牵涉面比较广的话题，一段时间之前写过一个关于转型的思想篇（），从背景等各方面都进行了分析，本篇文章为系列文章的第二篇，结合自身当前工作情况以及如下目标方向制定一个近中远不同阶段的实施规划。</p>
-<blockquote>
-<p><strong>以知识图谱+自适应学习这一类与行业业务结合比较密切的技术为切入口，结合行业应用配合产品将AI技术应用到具体AI产品中，同时在这个过程中深入学习，积累AI开发经验，从而达到使用AI算法的最新研究成功逐步打磨优化产品的目的。</strong></p>
-</blockquote>
-<h2 id="近期（1年）"><a href="#近期（1年）" class="headerlink" title="近期（1年）"></a>近期（1年）</h2><ul>
-<li>利用工作之余的时间系统学习机器学习以及机器学习相关知识。（201810——201903）</li>
-<li>在工作中争取尝试参与偏策略以及算法的工作，前期最好能够与后端落地进行结合，在工作中快速积累。（201811——201910）</li>
-<li>复习并加强知识图谱+自适应学习相关内容，并跟进学术界以及产业界应用的前沿技术，做好知识方面的储备。（201903——201910）</li>
-</ul>
-<h2 id="中期（2-5年）"><a href="#中期（2-5年）" class="headerlink" title="中期（2-5年）"></a>中期（2-5年）</h2><ul>
-<li>强化数学理论基础，建立更加完善的体系化数学建模思维。（201910——202110）</li>
-<li>深度参与并尝试主导教育AI项目的产品研发工作，积累AI落地实施的工程化经验。（202008-202308）</li>
-</ul>
-<h2 id="远期（5年往后）"><a href="#远期（5年往后）" class="headerlink" title="远期（5年往后）"></a>远期（5年往后）</h2><ul>
-<li>定向在职博士，加深理论背景并扩展眼界</li>
-<li>继续深耕教育与AI的结合方向，在AI工程红利期打造系统化的教育AI平台，更好的赋能公司业务发展甚至是真个互联网教育行业。</li>
-</ul>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>&emsp;&emsp;以上规划是按照目前调研数据并结合目前工作情况而制定的，难免会存在计划赶不上变化的情况，后续具体也会定期的回顾、思考以及调整。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/11/ai-transformation-mind/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hooke">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/11/ai-transformation-mind/" itemprop="url">
-                  互联网后端开发转型(转行)AI之路——思想篇
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-10-11 13:36:57" itemprop="dateCreated datePublished" datetime="2018-10-11T13:36:57+08:00">2018-10-11</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-10-23 12:35:58" itemprop="dateModified" datetime="2018-10-23T12:35:58+08:00">2018-10-23</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI转型/" itemprop="url" rel="index"><span itemprop="name">AI转型</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>&emsp;&emsp;一直以来工作都是以做互联网后端相关开发为主，各种业务系统、专家系统相关产品也做了不少，看到最近2年AI的兴起对各行业所带来的变化，个人对后续的职业生涯发展也产生了些许忧虑，并进行了一些思考，如何才能够跟随技术的发展不被时代淘汰也是我最近一段时间以来考虑的问题，正好这段时间由于一些原因稍微有些闲暇思考的时间，将相应的思考决策过程记录，以便以后查阅反省。</p>
-<h2 id="是否要转型AI"><a href="#是否要转型AI" class="headerlink" title="是否要转型AI"></a>是否要转型AI</h2><p>&emsp;&emsp;谈到是否要转型AI这个话题，可以说是仁者见仁智者见智，特别是目前所从事的岗位方向还不错的情况下谈论这个话题就更显纠结了，虽然互联网各方面都比较热门，但是谁又能保证不像20年前的通信行业呢。虽然说互联网和AI有交集，但是还是存在一些差异，20年前通信和互联网也有不少交集。从我自身考虑转型AI肯定是要进行的，基本原因大致如下：</p>
-<ul>
-<li>我个人是一个比较爱最求新技术的人，AI这个半个世纪以来的风口对我来说值的一追。</li>
-<li>开始读研究生时（2009年）考虑过将课题选为人工智能方向，但是当时现实情况下的种种原因没有实施成功，对我来说还是有这方面的兴趣爱好</li>
-<li>以AI从业者的身份投入到AI所带来的行业变化，同时在其中感受波澜壮阔的社会巨变可以带来比较强烈的内心满足感。</li>
-</ul>
-<h2 id="个人背景介绍"><a href="#个人背景介绍" class="headerlink" title="个人背景介绍"></a>个人背景介绍</h2><p>&emsp;&emsp;为什么要相关背景介绍呢，从职业发展规划，特别是涉及到工作上的转型完全是因人而异的，需要充分的考虑到个人的背景以及现状，同样一条方向或者道路对某个特别合适，对另外一个人来说可能是灾难。</p>
-<ul>
-<li>基本信息：32，北京，户口、房、车均具备，已婚丁克。</li>
-<li>教育背景：见知乎个人资料</li>
-<li>工作背景：工作6年，3年左右网络管理系统、网络诊断系统开发（百万级网元管理）经验；2年左右互联网医疗工作经验，包括SASS架构电子病历、移动护理、线上问诊、护理诊疗助手等系统（上百家医院信息互联）；1年左右互联网教育工作经验，包括课程管理、在线教室等系统开发。</li>
-</ul>
-<h2 id="优劣势分析"><a href="#优劣势分析" class="headerlink" title="优劣势分析"></a>优劣势分析</h2><p>&emsp;&emsp;各种问题分析模型其实挺多的，就先采取比较通用的简要SWOT模型进行分析。</p>
-<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul>
-<li>自认为数学基础较好（高考，大学及研究生阶段数学相关考试基本都是接近满分），当然比知乎上手推狭义相对论的大神差远了。</li>
-<li>经历过大型系统的开发，具备较好的系统工程化及落地经验。</li>
-<li>具备知识密集型行业经验，医疗以及教育，都是AI应用比较火的潜力行业，转型AI的话具备一定领域知识。</li>
-<li>无太大的经济以及精力上的羁绊。</li>
-</ul>
-<h3 id="劣势："><a href="#劣势：" class="headerlink" title="劣势："></a>劣势：</h3><ul>
-<li>年龄稍大，转型的话沉没成本比较高。</li>
-<li>从事的开发大多是偏向业务系统，缺乏算法、机器学习相关AI项目经验。</li>
-<li>目前的工作岗位与AI相关度不高，短期内可能得不到项目实战的积累</li>
-</ul>
-<h3 id="机遇："><a href="#机遇：" class="headerlink" title="机遇："></a>机遇：</h3><ul>
-<li>人工智能目前正处于发展风口，并且未来大概率发展前景良好</li>
-</ul>
-<h3 id="威胁："><a href="#威胁：" class="headerlink" title="威胁："></a>威胁：</h3><ul>
-<li></li>
-</ul>
-<h2 id="转型基本思路"><a href="#转型基本思路" class="headerlink" title="转型基本思路"></a>转型基本思路</h2><p>AI发展阶段csdn创始人蒋涛的观点我还是比较认同，如下图<br><a href="http://www.ctoutiao.com/387884.html" target="_blank" rel="noopener">http://www.ctoutiao.com/387884.html</a><br>因此AI相关研发岗位在不同阶段的需求也会有所不同，不同研发岗位的要求也有所不同，大致上也可分为基础算法岗位、通用技术岗位、业务技术岗位。</p>
-<p>通过上面对自身的优劣势分析，如果直接一头扎入机器学习，深度学习等比较偏算法的领域，在时间以及经验上可能并不是很容易做到不错的成绩，同时考虑到目前校招的竞争都如此激烈，对基本功的要求比较高，更别谈社招对相关经验的要求，可以说要求更高，如果说校招可能还会带有培养的意思，企业对于社招的要求更多都是能够快速出活，带来效益。</p>
-<p>校招激烈程度可以参看如下问题：<br><a href="https://www.zhihu.com/question/286925266" target="_blank" rel="noopener">https://www.zhihu.com/question/286925266</a></p>
-<p>综合考虑将转型AI方向定在业务技术岗位，业务技术岗位也有不少方向，可参考《AI技术人才成长路线图》<br><a href="https://blog.csdn.net/eNohtZvQiJxo00aTz3y8/article/details/79776075" target="_blank" rel="noopener">https://blog.csdn.net/eNohtZvQiJxo00aTz3y8/article/details/79776075</a></p>
-<p>也可参考<br><a href="https://www.zhihu.com/question/265041005/answer/344238588" target="_blank" rel="noopener">https://www.zhihu.com/question/265041005/answer/344238588</a></p>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><blockquote>
-<p><strong>以知识图谱+自适应学习这一类与行业业务结合比较密切的技术为切入口，结合行业应用配合产品将AI技术应用到具体AI产品中，同时在这个过程中深入学习，积累AI开发经验，从而达到使用AI算法的最新研究成功逐步打磨优化产品的目的。</strong></p>
-</blockquote>
-<p>&emsp;&emsp;凡是预则立，不预则废，在确定好思路之后，后续会结合目前的工作情况制定一个近中远不同阶段的实施计划。</p>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>&emsp;&emsp;本来转型属于个人职业生涯规划问题，与自身情况联系密切，直接进行参考意义不大，但是其中的分析以及思考过程在某种程度上也可以供目前想转型但是犹豫不决的“大龄”开发人员参考。由于本人在之前的某次决策中目前看来可能犯了些许错误，走了一些弯路，记录到知乎上也是希望能够集思广益，做到尽量的正确。</p>
-<p>&emsp;&emsp;相比知乎上一些介绍转型AI的经验，基本都是转完之后的介绍，结果都是明确的了，我的个人案例属于在转型思想期就进行了记录，中间的过程以及决策因素可能多变，结果也是未知的，希望知乎上的大神大牛们给出一些建议和指导，便于及时修正。</p>
-
           
         
       
@@ -2099,7 +2404,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2147,7 +2452,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -2187,7 +2498,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -2345,11 +2656,15 @@
   
     
       
+    
+      
+    
+      
+    
+      
+    
+      
         
-      
-    
-      
-    
       
     
       
